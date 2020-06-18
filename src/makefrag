@@ -1,0 +1,1 @@
+MSGC:=$(MSGC) -I$(HOME)/omnetpp-5.5.1/samples/inet/src/ --msg6

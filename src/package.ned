@@ -1,0 +1,3 @@
+package simplenetwork;
+
+@license(LGPL);

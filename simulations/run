@@ -1,0 +1,4 @@
+#!/bin/sh
+cd `dirname $0`
+../src/simpleNetwork_dbg -n .:../src:../../inet4/src/inet -u Qtenv $*
+# for shared lib, use: opp_run -l ../src/simplenetwork -n .:../src $*
