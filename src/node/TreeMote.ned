@@ -27,8 +27,8 @@ import inet.mobility.contract.IMobility;
 module TreeMote
 {
     parameters:
-        @display("i=misc/sensor2");
-        @labels(node, ad-hoc-node); // Etiqueta.
+        @display("i=misc/sensor2;bgb=522,615");
+        @labels(node,ad-hoc-node); // Etiqueta.
         @networkNode;   // Indicar al motor de simulacion que el modulo es un nodo de red.
         int numWlanInterfaces = default(1); // Numero de interfaz inalambrica.
         mobility.subjectModule = default("^"); // Usar propio modelo de mobilidad.
@@ -52,17 +52,19 @@ module TreeMote
         enl: ExtendedSimpleNetworkLayer {
             @display("p=170,365");
         }
-         al: MessageDispatcher {
-             parameters:
-                 @display("p=170,266;b=324,10");
-         }
+        al: MessageDispatcher {
+            parameters:
+                @display("p=170,266;b=324,10");
+        }
         // application: Application {
         //     @display("p=170,147");
         // }
         interfaceTable: InterfaceTable {
-            @display("p=49,147");
+            @display("p=468,420");
         }
-        mobility: <default("StationaryMobility")> like IMobility; // Cordenda geografica.
+        mobility: <default("StationaryMobility")> like IMobility { // Cordenda geografica.
+            @display("p=468,320");
+        }
     connections:
         radioIn[0] --> { @display("m=s"); } --> wlan[0].radioIn;
         wlan[0].upperLayerOut --> nl.in++;
