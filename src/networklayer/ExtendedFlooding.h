@@ -16,7 +16,15 @@
 #ifndef NETWORKLAYER_EXTENDEDFLOODING_H_
 #define NETWORKLAYER_EXTENDEDFLOODING_H_
 
-class ExtendedFlooding {
+#include "inet/networklayer/flooding/Flooding.h"
+
+class ExtendedFlooding : public inet::Flooding {
+protected:
+    /** @brief Handle messages from upper layer */
+    virtual void handleUpperPacket(inet::Packet *packet) override;
+
+    /** @brief Handle messages from lower layer */
+    virtual void handleLowerPacket(inet::Packet *packet) override;
 public:
     ExtendedFlooding();
     virtual ~ExtendedFlooding();
