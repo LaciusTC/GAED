@@ -226,7 +226,7 @@ Register_Class(LabelerPacket)
 
 LabelerPacket::LabelerPacket() : ::inet::FieldsChunk()
 {
-    this->setChunkLength(B(36));
+    this->setChunkLength(B(44));
 
 }
 
@@ -252,6 +252,7 @@ void LabelerPacket::copy(const LabelerPacket& other)
     this->src = other.src;
     this->dest = other.dest;
     this->status = other.status;
+    this->seqNumber = other.seqNumber;
 }
 
 void LabelerPacket::parsimPack(omnetpp::cCommBuffer *b) const
@@ -260,6 +261,7 @@ void LabelerPacket::parsimPack(omnetpp::cCommBuffer *b) const
     doParsimPacking(b,this->src);
     doParsimPacking(b,this->dest);
     doParsimPacking(b,this->status);
+    doParsimPacking(b,this->seqNumber);
 }
 
 void LabelerPacket::parsimUnpack(omnetpp::cCommBuffer *b)
@@ -268,6 +270,7 @@ void LabelerPacket::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->src);
     doParsimUnpacking(b,this->dest);
     doParsimUnpacking(b,this->status);
+    doParsimUnpacking(b,this->seqNumber);
 }
 
 const L3Address& LabelerPacket::getSrc() const
@@ -303,6 +306,17 @@ void LabelerPacket::setStatus(inet::NodeStatus status)
     this->status = status;
 }
 
+long LabelerPacket::getSeqNumber()
+{
+    return this->seqNumber;
+}
+
+void LabelerPacket::setSeqNumber(long seqNumber)
+{
+    handleChange();
+    this->seqNumber = seqNumber;
+}
+
 class LabelerPacketDescriptor : public omnetpp::cClassDescriptor
 {
   private:
@@ -311,6 +325,7 @@ class LabelerPacketDescriptor : public omnetpp::cClassDescriptor
         FIELD_src,
         FIELD_dest,
         FIELD_status,
+        FIELD_seqNumber,
     };
   public:
     LabelerPacketDescriptor();
@@ -373,7 +388,7 @@ const char *LabelerPacketDescriptor::getProperty(const char *propertyname) const
 int LabelerPacketDescriptor::getFieldCount() const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
-    return basedesc ? 3+basedesc->getFieldCount() : 3;
+    return basedesc ? 4+basedesc->getFieldCount() : 4;
 }
 
 unsigned int LabelerPacketDescriptor::getFieldTypeFlags(int field) const
@@ -388,8 +403,9 @@ unsigned int LabelerPacketDescriptor::getFieldTypeFlags(int field) const
         0,    // FIELD_src
         0,    // FIELD_dest
         FD_ISEDITABLE,    // FIELD_status
+        FD_ISEDITABLE,    // FIELD_seqNumber
     };
-    return (field >= 0 && field < 3) ? fieldTypeFlags[field] : 0;
+    return (field >= 0 && field < 4) ? fieldTypeFlags[field] : 0;
 }
 
 const char *LabelerPacketDescriptor::getFieldName(int field) const
@@ -404,8 +420,9 @@ const char *LabelerPacketDescriptor::getFieldName(int field) const
         "src",
         "dest",
         "status",
+        "seqNumber",
     };
-    return (field >= 0 && field < 3) ? fieldNames[field] : nullptr;
+    return (field >= 0 && field < 4) ? fieldNames[field] : nullptr;
 }
 
 int LabelerPacketDescriptor::findField(const char *fieldName) const
@@ -415,6 +432,7 @@ int LabelerPacketDescriptor::findField(const char *fieldName) const
     if (fieldName[0] == 's' && strcmp(fieldName, "src") == 0) return base+0;
     if (fieldName[0] == 'd' && strcmp(fieldName, "dest") == 0) return base+1;
     if (fieldName[0] == 's' && strcmp(fieldName, "status") == 0) return base+2;
+    if (fieldName[0] == 's' && strcmp(fieldName, "seqNumber") == 0) return base+3;
     return basedesc ? basedesc->findField(fieldName) : -1;
 }
 
@@ -430,8 +448,9 @@ const char *LabelerPacketDescriptor::getFieldTypeString(int field) const
         "inet::L3Address",    // FIELD_src
         "inet::L3Address",    // FIELD_dest
         "inet::NodeStatus",    // FIELD_status
+        "long", // FIELD_seqNumber
     };
-    return (field >= 0 && field < 3) ? fieldTypeStrings[field] : nullptr;
+    return (field >= 0 && field < 4) ? fieldTypeStrings[field] : nullptr;
 }
 
 const char **LabelerPacketDescriptor::getFieldPropertyNames(int field) const
@@ -508,6 +527,7 @@ std::string LabelerPacketDescriptor::getFieldValueAsString(void *object, int fie
         case FIELD_src: return pp->getSrc().str();
         case FIELD_dest: return pp->getDest().str();
         case FIELD_status: return enum2string(pp->getStatus(), "inet::NodeStatus");
+        case FIELD_seqNumber: return long2string(pp->getSeqNumber());
         default: return "";
     }
 }
