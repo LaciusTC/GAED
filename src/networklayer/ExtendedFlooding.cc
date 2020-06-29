@@ -25,10 +25,10 @@ ExtendedFlooding::~ExtendedFlooding() {
 
 void ExtendedFlooding::handleUpperPacket(inet::Packet *packet){
     if(packet->getId() == labelerPacketId){
-        auto labelerHeader = packet->peekAtFront<inet::LabelerPacket>(packet);
-        //if(labelerPacketTtl.find(labelerHeader->getSeqNumber()) != labelerPacketTtl.end());
-        if(packet->getId() > seqNumber){
-            encapsulate(packet);
+        auto labelerHeader = packet->peekAtFront<inet::LabelerPacket>();
+        if(labelerHeader->getSeqNumber() > seqNumber){
+            inet::Flooding::encapsulate(packet);
+            seqNumber = labelerHeader->getSeqNumber();
         }
     }else inet::Flooding::handleUpperPacket(packet);
     sendDown(packet);

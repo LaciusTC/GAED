@@ -85,7 +85,7 @@ class LabelerPacket : public ::inet::FieldsChunk
     L3Address src;
     L3Address dest;
     inet::NodeStatus status = static_cast<inet::NodeStatus>(-1);
-    long seqNumber;
+    long seqNumber = 0;
 
   private:
     void copy(const LabelerPacket& other);
@@ -112,7 +112,7 @@ class LabelerPacket : public ::inet::FieldsChunk
     virtual void setDest(const L3Address& dest);
     virtual inet::NodeStatus getStatus() const;
     virtual void setStatus(inet::NodeStatus status);
-    virtual long getSeqNumber();
+    virtual long getSeqNumber() const;
     virtual void setSeqNumber(long seqNumber);
 };
 

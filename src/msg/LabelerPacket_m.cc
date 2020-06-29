@@ -306,7 +306,7 @@ void LabelerPacket::setStatus(inet::NodeStatus status)
     this->status = status;
 }
 
-long LabelerPacket::getSeqNumber()
+long LabelerPacket::getSeqNumber() const
 {
     return this->seqNumber;
 }
@@ -448,7 +448,7 @@ const char *LabelerPacketDescriptor::getFieldTypeString(int field) const
         "inet::L3Address",    // FIELD_src
         "inet::L3Address",    // FIELD_dest
         "inet::NodeStatus",    // FIELD_status
-        "long", // FIELD_seqNumber
+        "long",    // FIELD_seqNumber
     };
     return (field >= 0 && field < 4) ? fieldTypeStrings[field] : nullptr;
 }
@@ -543,6 +543,7 @@ bool LabelerPacketDescriptor::setFieldValueAsString(void *object, int field, int
     LabelerPacket *pp = (LabelerPacket *)object; (void)pp;
     switch (field) {
         case FIELD_status: pp->setStatus((inet::NodeStatus)string2enum(value, "inet::NodeStatus")); return true;
+        case FIELD_seqNumber: pp->setSeqNumber(string2long(value)); return true;
         default: return false;
     }
 }
