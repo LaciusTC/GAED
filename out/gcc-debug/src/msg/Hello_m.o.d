@@ -1,5 +1,5 @@
 ../out/gcc-debug/src/msg/Hello_m.o: msg/Hello_m.cc msg/Hello_m.h \
- /home/juan/omnetpp-5.6.2/include/omnetpp.h \
+ /home/juan/omnetpp5/include/omnetpp.h \
  /home/juan/inet4/src/inet/common/INETDefs_m.h \
  /home/juan/inet4/src/inet/common/INETDefs.h \
  /home/juan/inet4/src/inet/common/precompiled_debug.h \
@@ -34,7 +34,7 @@
 
 msg/Hello_m.h:
 
-/home/juan/omnetpp-5.6.2/include/omnetpp.h:
+/home/juan/omnetpp5/include/omnetpp.h:
 
 /home/juan/inet4/src/inet/common/INETDefs_m.h:
 

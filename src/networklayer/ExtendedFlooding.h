@@ -20,16 +20,20 @@
 #include "inet/networklayer/common/L3AddressTag_m.h"
 #include "inet/networklayer/flooding/Flooding.h"
 #include "../msg/LabelerPacket_m.h"
-//#include "inet/networklayer/flooding/FloodingHeader_m.h"
+#include "inet/networklayer/flooding/FloodingHeader_m.h"
 #include "inet/networklayer/common/HopLimitTag_m.h"
-#include <unordered_map>
+
+#include "inet/common/ProtocolTag_m.h"
+#include "inet/linklayer/common/MacAddressTag_m.h"
+#include "inet/networklayer/common/HopLimitTag_m.h"
+#include "inet/networklayer/contract/IL3AddressType.h"
 
 class ExtendedFlooding : public inet::Flooding {
 protected:
     //std::unordered_map<unsigned, unsigned>labelerPacketTtl;
     unsigned labelerPacketId;
-    unsigned seqNumber;
-    unsigned ttl;
+    unsigned labelerSequenceNumber;
+    unsigned labelerTtl;
 protected:
     /** @brief Handle messages from upper layer */
     virtual void handleUpperPacket(inet::Packet *packet) override;

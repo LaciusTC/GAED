@@ -26,12 +26,39 @@ ExtendedFlooding::~ExtendedFlooding() {
 void ExtendedFlooding::handleUpperPacket(inet::Packet *packet){
     if(packet->getId() == labelerPacketId){
         auto labelerHeader = packet->peekAtFront<inet::LabelerPacket>();
-        if(labelerHeader->getSeqNumber() > seqNumber){
+        if(labelerHeader->getSeqNumber() > labelerSequenceNumber){
             inet::Flooding::encapsulate(packet);
-            seqNumber = labelerHeader->getSeqNumber();
+            labelerSequenceNumber = labelerHeader->getSeqNumber();
         }
-    }else inet::Flooding::handleUpperPacket(packet);
+        else{
+            encapsulate(packet);
+        }
+    }
+    else
+    {
+        inet::Flooding::encapsulate(packet);
+    }
+    auto floodHeader = packet->peekAtFront<inet::FloodingHeader>();
+    if (plainFlooding) {
+        if (bcMsgs.size() >= bcMaxEntries) {
+            //search the broadcast list of outdated entries and delete them
+            for (auto it = bcMsgs.begin(); it != bcMsgs.end(); ) {
+                if (it->delTime < omnetpp::simTime())
+                    it = bcMsgs.erase(it);
+                else
+                    ++it;
+            }
+            //delete oldest entry if max size is reached
+            if (bcMsgs.size() >= bcMaxEntries) {
+                EV << "bcMsgs is full, delete oldest entry" << std::endl;
+                bcMsgs.pop_front();
+            }
+        }
+        bcMsgs.push_back(Bcast(floodHeader->getSeqNum(), floodHeader->getSourceAddress(), omnetpp::simTime() + bcDelTime));
+    }
+    //there is no routing so all messages are broadcast for the mac layer
     sendDown(packet);
+    nbDataPacketsSent++;
 }
 
 void ExtendedFlooding::handleLowerPacket(inet::Packet *packet){}
@@ -48,18 +75,15 @@ void ExtendedFlooding::encapsulate(inet::Packet *packet){
     EV << "in encaps...\n";
 
     auto cInfo = packet->removeControlInfo();
-    auto pkt = inet::makeShared<inet::LabelerPacket>(); // TODO: packet->getName(), packet->getKind());
+    auto pkt = inet::makeShared<inet::FloodingHeader>(); // TODO: packet->getName(), packet->getKind());
     pkt->setChunkLength(inet::b(headerLength));
 
     auto hopLimitReq = packet->removeTagIfPresent<inet::HopLimitReq>();
-    int ttl = (hopLimitReq != nullptr) ? hopLimitReq->getHopLimit() : -1;
     delete hopLimitReq;
-    if (ttl == -1)
-        ttl = defaultTtl;
 
-    pkt->setSeqNumber(seqNum);
+    pkt->setSeqNum(seqNum);
     seqNum++;
-    //pkt->setTtl(ttl);
+    pkt->setTtl(labelerTtl);
 
     auto addressReq = packet->findTag<inet::L3AddressReq>();
     if (addressReq == nullptr) {
