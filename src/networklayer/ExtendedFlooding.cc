@@ -61,7 +61,90 @@ void ExtendedFlooding::handleUpperPacket(inet::Packet *packet){
     nbDataPacketsSent++;
 }
 
-void ExtendedFlooding::handleLowerPacket(inet::Packet *packet){}
+void ExtendedFlooding::handleLowerPacket(inet::Packet *packet)
+{
+    auto floodHeader = packet->peekAtFront<inet::FloodingHeader>();
+
+    //msg not broadcasted yet
+    if (notBroadcasted(floodHeader.get())) {
+        if(packet->getId() == labelerPacketId){ // TODO checar que el paquete sea broadcast.
+            if(floodHeader->getTtl() >= 1){
+                labelerTtl = floodHeader->getTtl() - 1;
+                // message has to be forwarded to upper layer
+                nbHops = nbHops + (defaultTtl + 1 - floodHeader->getTtl());
+                decapsulate(packet);
+                sendUp(packet);
+                nbDataPacketsReceived++;
+            }else{
+                EV_INFO << "labelerPacket has reached max number of hops.\n";
+                delete packet;
+            }
+        }
+        //msg is for me
+        else if (interfaceTable->isLocalAddress(floodHeader->getDestinationAddress())) {
+            EV << " data msg for me! send to Upper\n";
+            nbHops = nbHops + (defaultTtl + 1 - floodHeader->getTtl());
+            decapsulate(packet);
+            sendUp(packet);
+            nbDataPacketsReceived++;
+        }
+        //broadcast message
+        else if (floodHeader->getDestinationAddress().isBroadcast()) {
+            
+            //check ttl and rebroadcast
+            if (floodHeader->getTtl() > 1) {
+                EV << " data msg BROADCAST! ttl = " << floodHeader->getTtl()
+                   << " > 1 -> rebroadcast msg & send to upper\n";
+                auto dMsg = packet->dup();
+                auto newFloodHeader = dMsg->removeAtFront<inet::FloodingHeader>();
+                newFloodHeader->setTtl(newFloodHeader->getTtl() - 1);
+                dMsg->insertAtFront(newFloodHeader);
+                setDownControlInfo(dMsg, inet::MacAddress::BROADCAST_ADDRESS);
+                sendDown(dMsg);
+                nbDataPacketsForwarded++;
+            }
+            else
+                EV << " max hops reached (ttl = " << floodHeader->getTtl() << ") -> only send to upper\n";
+
+            // message has to be forwarded to upper layer
+            nbHops = nbHops + (defaultTtl + 1 - floodHeader->getTtl());
+            decapsulate(packet);
+            sendUp(packet);
+            nbDataPacketsReceived++;
+        }
+        //not for me -> rebroadcast
+        else {
+            //check ttl and rebroadcast
+            if (floodHeader->getTtl() > 1) {
+                EV << " data msg not for me! ttl = " << floodHeader->getTtl()
+                   << " > 1 -> forward\n";
+                decapsulate(packet);
+                auto packetCopy = new inet::Packet();
+                packetCopy->insertAtBack(packet->peekDataAt(inet::b(0), packet->getDataLength()));
+                auto floodHeaderCopy = inet::staticPtrCast<inet::FloodingHeader>(floodHeader->dupShared());
+                floodHeaderCopy->setTtl(floodHeader->getTtl() - 1);
+                packetCopy->insertAtFront(floodHeaderCopy);
+                // needs to set the next hop address again to broadcast
+                cObject *const pCtrlInfo = packetCopy->removeControlInfo();
+                if (pCtrlInfo != nullptr)
+                    delete pCtrlInfo;
+                setDownControlInfo(packetCopy, inet::MacAddress::BROADCAST_ADDRESS);
+                sendDown(packetCopy);
+                nbDataPacketsForwarded++;
+                delete packet;
+            }
+            else {
+                //max hops reached -> delete
+                EV << " max hops reached (ttl = " << floodHeader->getTtl() << ") -> delete msg\n";
+                delete packet;
+            }
+        }
+    }
+    else {
+        EV << " data msg already BROADCASTed! delete msg\n";
+        delete packet;
+    }
+}
 
 void ExtendedFlooding::initialize(int stage){
     inet::Flooding::initialize(stage);
