@@ -107,6 +107,7 @@ void HelloProtocol::recvPacket(inet::Packet* pkt){
     << helloInfo->getSrcMacAddress() << '\n';
     
     // Guardar en la NeighborCache.
+    // TODO obtener la etiqueta por apuntador hacia el etiquetador
     cache->insert(NeighborCache::entry("null",helloInfo->getSrcMacAddress()));
     
     std::cout << "Vecindario del nodo " << mac << "\n";

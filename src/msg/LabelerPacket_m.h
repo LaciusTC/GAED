@@ -73,9 +73,11 @@ enum NodeStatus {
  * {
  *     L3Address src;
  *     L3Address dest;
+ *     LabelerPacketType type;
  *     NodeStatus status;
  *     long seqNumber;
- *     chunkLength = B(44); //Longitud en bytes del mensaje.
+ *     long ttl;
+ *     chunkLength = B(56); //Longitud en bytes del mensaje.
  * }
  * </pre>
  */
@@ -84,8 +86,10 @@ class LabelerPacket : public ::inet::FieldsChunk
   protected:
     L3Address src;
     L3Address dest;
+    inet::LabelerPacketType type = static_cast<inet::LabelerPacketType>(-1);
     inet::NodeStatus status = static_cast<inet::NodeStatus>(-1);
     long seqNumber = 0;
+    long ttl = 0;
 
   private:
     void copy(const LabelerPacket& other);
@@ -110,10 +114,14 @@ class LabelerPacket : public ::inet::FieldsChunk
     virtual const L3Address& getDest() const;
     virtual L3Address& getDestForUpdate() { handleChange();return const_cast<L3Address&>(const_cast<LabelerPacket*>(this)->getDest());}
     virtual void setDest(const L3Address& dest);
+    virtual inet::LabelerPacketType getType() const;
+    virtual void setType(inet::LabelerPacketType type);
     virtual inet::NodeStatus getStatus() const;
     virtual void setStatus(inet::NodeStatus status);
     virtual long getSeqNumber() const;
     virtual void setSeqNumber(long seqNumber);
+    virtual long getTtl() const;
+    virtual void setTtl(long ttl);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const LabelerPacket& obj) {obj.parsimPack(b);}

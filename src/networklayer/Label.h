@@ -49,6 +49,9 @@ public:
     
     std::string str();
     Address getLabel() const { return addr; }
+    Label getPrefix(int);
+    void setLabel(Address addr) { this->addr = addr; }
+    void setPrefix(uint8_t index, uint8_t value) { addr.symbol[index] = value; }
 
     bool assertSize(const char* cad) { return sizeof(cad)-1 == 16; }
     bool isUnspecified() { return !addr.numeric[0] && !addr.numeric[1]; }
@@ -64,7 +67,6 @@ public:
     bool operator!=(const Label& label) const { return !(*this == label); }
 
     bool matches(const Label& label, int prefixLength) { return false; } // TODO implementar para encaminamiento.
-    Label getPrefix(int);
 };
 
 } // namespace inet

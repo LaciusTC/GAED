@@ -23,7 +23,6 @@ simple Labeler
     parameters:
     	@display("i=block/fork"); //TODO Change icon
     	string status @enum("INITIATOR", "IDLE", "DONE") = default("IDLE");
-    	string label = default("");
     gates:
         input  labelerIn @labels(Input port);
         output labelerOut @labels(Output port);

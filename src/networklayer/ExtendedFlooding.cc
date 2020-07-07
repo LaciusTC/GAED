@@ -30,14 +30,10 @@ void ExtendedFlooding::handleUpperPacket(inet::Packet *packet){
             inet::Flooding::encapsulate(packet);
             labelerSequenceNumber = labelerHeader->getSeqNumber();
         }
-        else{
-            encapsulate(packet);
-        }
+        else encapsulate(packet);
     }
-    else
-    {
-        inet::Flooding::encapsulate(packet);
-    }
+    else inet::Flooding::encapsulate(packet);
+
     auto floodHeader = packet->peekAtFront<inet::FloodingHeader>();
     if (plainFlooding) {
         if (bcMsgs.size() >= bcMaxEntries) {

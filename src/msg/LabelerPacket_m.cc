@@ -226,7 +226,7 @@ Register_Class(LabelerPacket)
 
 LabelerPacket::LabelerPacket() : ::inet::FieldsChunk()
 {
-    this->setChunkLength(B(44));
+    this->setChunkLength(B(56));
 
 }
 
@@ -251,8 +251,10 @@ void LabelerPacket::copy(const LabelerPacket& other)
 {
     this->src = other.src;
     this->dest = other.dest;
+    this->type = other.type;
     this->status = other.status;
     this->seqNumber = other.seqNumber;
+    this->ttl = other.ttl;
 }
 
 void LabelerPacket::parsimPack(omnetpp::cCommBuffer *b) const
@@ -260,8 +262,10 @@ void LabelerPacket::parsimPack(omnetpp::cCommBuffer *b) const
     ::inet::FieldsChunk::parsimPack(b);
     doParsimPacking(b,this->src);
     doParsimPacking(b,this->dest);
+    doParsimPacking(b,this->type);
     doParsimPacking(b,this->status);
     doParsimPacking(b,this->seqNumber);
+    doParsimPacking(b,this->ttl);
 }
 
 void LabelerPacket::parsimUnpack(omnetpp::cCommBuffer *b)
@@ -269,8 +273,10 @@ void LabelerPacket::parsimUnpack(omnetpp::cCommBuffer *b)
     ::inet::FieldsChunk::parsimUnpack(b);
     doParsimUnpacking(b,this->src);
     doParsimUnpacking(b,this->dest);
+    doParsimUnpacking(b,this->type);
     doParsimUnpacking(b,this->status);
     doParsimUnpacking(b,this->seqNumber);
+    doParsimUnpacking(b,this->ttl);
 }
 
 const L3Address& LabelerPacket::getSrc() const
@@ -295,6 +301,17 @@ void LabelerPacket::setDest(const L3Address& dest)
     this->dest = dest;
 }
 
+inet::LabelerPacketType LabelerPacket::getType() const
+{
+    return this->type;
+}
+
+void LabelerPacket::setType(inet::LabelerPacketType type)
+{
+    handleChange();
+    this->type = type;
+}
+
 inet::NodeStatus LabelerPacket::getStatus() const
 {
     return this->status;
@@ -317,6 +334,17 @@ void LabelerPacket::setSeqNumber(long seqNumber)
     this->seqNumber = seqNumber;
 }
 
+long LabelerPacket::getTtl() const
+{
+    return this->ttl;
+}
+
+void LabelerPacket::setTtl(long ttl)
+{
+    handleChange();
+    this->ttl = ttl;
+}
+
 class LabelerPacketDescriptor : public omnetpp::cClassDescriptor
 {
   private:
@@ -324,8 +352,10 @@ class LabelerPacketDescriptor : public omnetpp::cClassDescriptor
     enum FieldConstants {
         FIELD_src,
         FIELD_dest,
+        FIELD_type,
         FIELD_status,
         FIELD_seqNumber,
+        FIELD_ttl,
     };
   public:
     LabelerPacketDescriptor();
@@ -388,7 +418,7 @@ const char *LabelerPacketDescriptor::getProperty(const char *propertyname) const
 int LabelerPacketDescriptor::getFieldCount() const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
-    return basedesc ? 4+basedesc->getFieldCount() : 4;
+    return basedesc ? 6+basedesc->getFieldCount() : 6;
 }
 
 unsigned int LabelerPacketDescriptor::getFieldTypeFlags(int field) const
@@ -402,10 +432,12 @@ unsigned int LabelerPacketDescriptor::getFieldTypeFlags(int field) const
     static unsigned int fieldTypeFlags[] = {
         0,    // FIELD_src
         0,    // FIELD_dest
+        FD_ISEDITABLE,    // FIELD_type
         FD_ISEDITABLE,    // FIELD_status
         FD_ISEDITABLE,    // FIELD_seqNumber
+        FD_ISEDITABLE,    // FIELD_ttl
     };
-    return (field >= 0 && field < 4) ? fieldTypeFlags[field] : 0;
+    return (field >= 0 && field < 6) ? fieldTypeFlags[field] : 0;
 }
 
 const char *LabelerPacketDescriptor::getFieldName(int field) const
@@ -419,10 +451,12 @@ const char *LabelerPacketDescriptor::getFieldName(int field) const
     static const char *fieldNames[] = {
         "src",
         "dest",
+        "type",
         "status",
         "seqNumber",
+        "ttl",
     };
-    return (field >= 0 && field < 4) ? fieldNames[field] : nullptr;
+    return (field >= 0 && field < 6) ? fieldNames[field] : nullptr;
 }
 
 int LabelerPacketDescriptor::findField(const char *fieldName) const
@@ -431,8 +465,10 @@ int LabelerPacketDescriptor::findField(const char *fieldName) const
     int base = basedesc ? basedesc->getFieldCount() : 0;
     if (fieldName[0] == 's' && strcmp(fieldName, "src") == 0) return base+0;
     if (fieldName[0] == 'd' && strcmp(fieldName, "dest") == 0) return base+1;
-    if (fieldName[0] == 's' && strcmp(fieldName, "status") == 0) return base+2;
-    if (fieldName[0] == 's' && strcmp(fieldName, "seqNumber") == 0) return base+3;
+    if (fieldName[0] == 't' && strcmp(fieldName, "type") == 0) return base+2;
+    if (fieldName[0] == 's' && strcmp(fieldName, "status") == 0) return base+3;
+    if (fieldName[0] == 's' && strcmp(fieldName, "seqNumber") == 0) return base+4;
+    if (fieldName[0] == 't' && strcmp(fieldName, "ttl") == 0) return base+5;
     return basedesc ? basedesc->findField(fieldName) : -1;
 }
 
@@ -447,10 +483,12 @@ const char *LabelerPacketDescriptor::getFieldTypeString(int field) const
     static const char *fieldTypeStrings[] = {
         "inet::L3Address",    // FIELD_src
         "inet::L3Address",    // FIELD_dest
+        "inet::LabelerPacketType",    // FIELD_type
         "inet::NodeStatus",    // FIELD_status
         "long",    // FIELD_seqNumber
+        "long",    // FIELD_ttl
     };
-    return (field >= 0 && field < 4) ? fieldTypeStrings[field] : nullptr;
+    return (field >= 0 && field < 6) ? fieldTypeStrings[field] : nullptr;
 }
 
 const char **LabelerPacketDescriptor::getFieldPropertyNames(int field) const
@@ -462,6 +500,10 @@ const char **LabelerPacketDescriptor::getFieldPropertyNames(int field) const
         field -= basedesc->getFieldCount();
     }
     switch (field) {
+        case FIELD_type: {
+            static const char *names[] = { "enum",  nullptr };
+            return names;
+        }
         case FIELD_status: {
             static const char *names[] = { "enum",  nullptr };
             return names;
@@ -479,6 +521,9 @@ const char *LabelerPacketDescriptor::getFieldProperty(int field, const char *pro
         field -= basedesc->getFieldCount();
     }
     switch (field) {
+        case FIELD_type:
+            if (!strcmp(propertyname, "enum")) return "inet::LabelerPacketType";
+            return nullptr;
         case FIELD_status:
             if (!strcmp(propertyname, "enum")) return "inet::NodeStatus";
             return nullptr;
@@ -526,8 +571,10 @@ std::string LabelerPacketDescriptor::getFieldValueAsString(void *object, int fie
     switch (field) {
         case FIELD_src: return pp->getSrc().str();
         case FIELD_dest: return pp->getDest().str();
+        case FIELD_type: return enum2string(pp->getType(), "inet::LabelerPacketType");
         case FIELD_status: return enum2string(pp->getStatus(), "inet::NodeStatus");
         case FIELD_seqNumber: return long2string(pp->getSeqNumber());
+        case FIELD_ttl: return long2string(pp->getTtl());
         default: return "";
     }
 }
@@ -542,8 +589,10 @@ bool LabelerPacketDescriptor::setFieldValueAsString(void *object, int field, int
     }
     LabelerPacket *pp = (LabelerPacket *)object; (void)pp;
     switch (field) {
+        case FIELD_type: pp->setType((inet::LabelerPacketType)string2enum(value, "inet::LabelerPacketType")); return true;
         case FIELD_status: pp->setStatus((inet::NodeStatus)string2enum(value, "inet::NodeStatus")); return true;
         case FIELD_seqNumber: pp->setSeqNumber(string2long(value)); return true;
+        case FIELD_ttl: pp->setTtl(string2long(value)); return true;
         default: return false;
     }
 }

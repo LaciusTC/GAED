@@ -45,6 +45,7 @@ void NeighborDiscoveryProtocolBase::initialize(int stage){
             getSubmodule("mote", hostIndex)->getSubmodule("enl")->
             getSubmodule("nc");
         cache = static_cast<NeighborCache*>(cacheModule);
+        // TODO inicializar apuntador hacia el etiquetador
         interfaceTable = inet::getModuleFromPar<inet::IInterfaceTable>(
             par("interfaceTableModule"), this
         );
