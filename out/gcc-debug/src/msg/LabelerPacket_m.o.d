@@ -34,7 +34,8 @@
  /home/juan/inet4/src/inet/networklayer/common/L3Address.h \
  /home/juan/inet4/src/inet/networklayer/common/ModuleIdAddress.h \
  /home/juan/inet4/src/inet/networklayer/common/ModulePathAddress.h \
- /home/juan/inet4/src/inet/networklayer/contract/clns/ClnsAddress.h
+ /home/juan/inet4/src/inet/networklayer/contract/clns/ClnsAddress.h \
+ /home/juan/inet4/src/inet/networklayer/contract/label/Label.h
 
 msg/LabelerPacket_m.h:
 
@@ -109,3 +110,5 @@ msg/LabelerPacket_m.h:
 /home/juan/inet4/src/inet/networklayer/common/ModulePathAddress.h:
 
 /home/juan/inet4/src/inet/networklayer/contract/clns/ClnsAddress.h:
+
+/home/juan/inet4/src/inet/networklayer/contract/label/Label.h:

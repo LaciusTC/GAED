@@ -15,6 +15,7 @@
  /home/juan/inet4/src/inet/networklayer/contract/clns/ClnsAddress.h \
  /home/juan/inet4/src/inet/networklayer/contract/ipv4/Ipv4Address.h \
  /home/juan/inet4/src/inet/networklayer/contract/ipv6/Ipv6Address.h \
+ /home/juan/inet4/src/inet/networklayer/contract/label/Label.h \
  /home/juan/inet4/src/inet/networklayer/common/L3AddressTag_m.h \
  /home/juan/inet4/src/inet/common/INETDefs_m.h \
  /home/juan/inet4/src/inet/common/TagBase_m.h \
@@ -98,6 +99,8 @@ networklayer/ExtendedFlooding.h:
 /home/juan/inet4/src/inet/networklayer/contract/ipv4/Ipv4Address.h:
 
 /home/juan/inet4/src/inet/networklayer/contract/ipv6/Ipv6Address.h:
+
+/home/juan/inet4/src/inet/networklayer/contract/label/Label.h:
 
 /home/juan/inet4/src/inet/networklayer/common/L3AddressTag_m.h:
 

@@ -31,7 +31,7 @@
 class ExtendedFlooding : public inet::Flooding {
 protected:
     //std::unordered_map<unsigned, unsigned>labelerPacketTtl;
-    unsigned labelerPacketId;
+    short labelerPacketKind;
     unsigned labelerSequenceNumber = 0;
     unsigned labelerTtl;
 protected:

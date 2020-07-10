@@ -53,6 +53,7 @@
  /home/juan/inet4/src/inet/networklayer/common/ModuleIdAddress.h \
  /home/juan/inet4/src/inet/networklayer/common/ModulePathAddress.h \
  /home/juan/inet4/src/inet/networklayer/contract/clns/ClnsAddress.h \
+ /home/juan/inet4/src/inet/networklayer/contract/label/Label.h \
  /home/juan/inet4/src/inet/common/ModuleAccess.h \
  /home/juan/inet4/src/inet/linklayer/common/InterfaceTag_m.h \
  base/../msg/Hello_m.h
@@ -162,6 +163,8 @@ base/../networklayer/NeighborCache.h:
 /home/juan/inet4/src/inet/networklayer/common/ModulePathAddress.h:
 
 /home/juan/inet4/src/inet/networklayer/contract/clns/ClnsAddress.h:
+
+/home/juan/inet4/src/inet/networklayer/contract/label/Label.h:
 
 /home/juan/inet4/src/inet/common/ModuleAccess.h:
 

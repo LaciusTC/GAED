@@ -44,8 +44,6 @@ class Labeler : public omnetpp::cSimpleModule
 
   protected:
     virtual void processPacket(inet::Packet*);
-    virtual void processLabelerRequest(inet::Packet *packet);
-    virtual void processLabelerReply(inet::Packet *packet);
     virtual int numInitStages() const override { return inet::NUM_INIT_STAGES; }
     virtual void initialize(int stage) override;
     virtual void handleMessage(omnetpp::cMessage *msg) override;

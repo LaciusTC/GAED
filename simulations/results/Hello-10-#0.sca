@@ -1,24 +1,24 @@
 version 2
-run Hello-0-20200622-20:44:16-13299
+run Hello-0-20200709-19:07:56-10192
 attr configname Hello
-attr datetime 20200622-20:44:16
+attr datetime 20200709-19:07:56
 attr experiment Hello
 attr inifile omnetpp.ini
 attr iterationvars $0=10
 attr iterationvarsf 10-
 attr measurement $0=10
 attr network HelloTest
-attr processid 13299
+attr processid 10192
 attr repetition 0
 attr replication #0
 attr resultdir results
 attr runnumber 0
 attr seedset 10
-param **.mote[*].mobility.numHosts 100
-param **.moteNumber 100
+param **.mote[*].mobility.numHosts 16
+param **.mote[0].enl.labeler.status "\"INITIATOR\""
+param **.moteNumber 16
 param **.mobility.typename "\"StaticGridMobility\""
 param **.mobility.initFromDisplayString false
-param **.enl.np.typename "\"ProbabilisticBroadcast\""
 param **.broadcastTime 30s
 param **.bcastDelay 15s
 param **.maxAttemps 3
@@ -41,311 +41,61 @@ param **.radioMedium.mediumLimitCache.minReceptionPower -85dBm
 param **.radioMedium.neighborCache.refillPeriod 3600s
 param **.radioMedium.pathLoss.alpha 3.5
 param **.radioMedium.mediumLimitCache.centerFrequency 2.412GHz
+param **.enl.np.typename "\"ExtendedFlooding\""
+param **.enl.np.defaultTtl 16
 param **.constraintAreaMinX 0m
 param **.constraintAreaMinY 0m
 param **.constraintAreaMinZ 0m
-param **.constraintAreaMaxX 200m
-param **.constraintAreaMaxY 200m
+param **.constraintAreaMaxX 150m
+param **.constraintAreaMaxY 150m
 param **.constraintAreaMaxZ 0m
 
-scalar HelloTest.mote[0].mobility x 10
-scalar HelloTest.mote[0].mobility y 10
+scalar HelloTest.mote[0].mobility x 18.75
+scalar HelloTest.mote[0].mobility y 18.75
 scalar HelloTest.mote[0].mobility z 0
-scalar HelloTest.mote[1].mobility x 30
-scalar HelloTest.mote[1].mobility y 10
+scalar HelloTest.mote[1].mobility x 56.25
+scalar HelloTest.mote[1].mobility y 18.75
 scalar HelloTest.mote[1].mobility z 0
-scalar HelloTest.mote[2].mobility x 50
-scalar HelloTest.mote[2].mobility y 10
+scalar HelloTest.mote[2].mobility x 93.75
+scalar HelloTest.mote[2].mobility y 18.75
 scalar HelloTest.mote[2].mobility z 0
-scalar HelloTest.mote[3].mobility x 70
-scalar HelloTest.mote[3].mobility y 10
+scalar HelloTest.mote[3].mobility x 131.25
+scalar HelloTest.mote[3].mobility y 18.75
 scalar HelloTest.mote[3].mobility z 0
-scalar HelloTest.mote[4].mobility x 90
-scalar HelloTest.mote[4].mobility y 10
+scalar HelloTest.mote[4].mobility x 18.75
+scalar HelloTest.mote[4].mobility y 56.25
 scalar HelloTest.mote[4].mobility z 0
-scalar HelloTest.mote[5].mobility x 110
-scalar HelloTest.mote[5].mobility y 10
+scalar HelloTest.mote[5].mobility x 56.25
+scalar HelloTest.mote[5].mobility y 56.25
 scalar HelloTest.mote[5].mobility z 0
-scalar HelloTest.mote[6].mobility x 130
-scalar HelloTest.mote[6].mobility y 10
+scalar HelloTest.mote[6].mobility x 93.75
+scalar HelloTest.mote[6].mobility y 56.25
 scalar HelloTest.mote[6].mobility z 0
-scalar HelloTest.mote[7].mobility x 150
-scalar HelloTest.mote[7].mobility y 10
+scalar HelloTest.mote[7].mobility x 131.25
+scalar HelloTest.mote[7].mobility y 56.25
 scalar HelloTest.mote[7].mobility z 0
-scalar HelloTest.mote[8].mobility x 170
-scalar HelloTest.mote[8].mobility y 10
+scalar HelloTest.mote[8].mobility x 18.75
+scalar HelloTest.mote[8].mobility y 93.75
 scalar HelloTest.mote[8].mobility z 0
-scalar HelloTest.mote[9].mobility x 190
-scalar HelloTest.mote[9].mobility y 10
+scalar HelloTest.mote[9].mobility x 56.25
+scalar HelloTest.mote[9].mobility y 93.75
 scalar HelloTest.mote[9].mobility z 0
-scalar HelloTest.mote[10].mobility x 10
-scalar HelloTest.mote[10].mobility y 30
+scalar HelloTest.mote[10].mobility x 93.75
+scalar HelloTest.mote[10].mobility y 93.75
 scalar HelloTest.mote[10].mobility z 0
-scalar HelloTest.mote[11].mobility x 30
-scalar HelloTest.mote[11].mobility y 30
+scalar HelloTest.mote[11].mobility x 131.25
+scalar HelloTest.mote[11].mobility y 93.75
 scalar HelloTest.mote[11].mobility z 0
-scalar HelloTest.mote[12].mobility x 50
-scalar HelloTest.mote[12].mobility y 30
+scalar HelloTest.mote[12].mobility x 18.75
+scalar HelloTest.mote[12].mobility y 131.25
 scalar HelloTest.mote[12].mobility z 0
-scalar HelloTest.mote[13].mobility x 70
-scalar HelloTest.mote[13].mobility y 30
+scalar HelloTest.mote[13].mobility x 56.25
+scalar HelloTest.mote[13].mobility y 131.25
 scalar HelloTest.mote[13].mobility z 0
-scalar HelloTest.mote[14].mobility x 90
-scalar HelloTest.mote[14].mobility y 30
+scalar HelloTest.mote[14].mobility x 93.75
+scalar HelloTest.mote[14].mobility y 131.25
 scalar HelloTest.mote[14].mobility z 0
-scalar HelloTest.mote[15].mobility x 110
-scalar HelloTest.mote[15].mobility y 30
+scalar HelloTest.mote[15].mobility x 131.25
+scalar HelloTest.mote[15].mobility y 131.25
 scalar HelloTest.mote[15].mobility z 0
-scalar HelloTest.mote[16].mobility x 130
-scalar HelloTest.mote[16].mobility y 30
-scalar HelloTest.mote[16].mobility z 0
-scalar HelloTest.mote[17].mobility x 150
-scalar HelloTest.mote[17].mobility y 30
-scalar HelloTest.mote[17].mobility z 0
-scalar HelloTest.mote[18].mobility x 170
-scalar HelloTest.mote[18].mobility y 30
-scalar HelloTest.mote[18].mobility z 0
-scalar HelloTest.mote[19].mobility x 190
-scalar HelloTest.mote[19].mobility y 30
-scalar HelloTest.mote[19].mobility z 0
-scalar HelloTest.mote[20].mobility x 10
-scalar HelloTest.mote[20].mobility y 50
-scalar HelloTest.mote[20].mobility z 0
-scalar HelloTest.mote[21].mobility x 30
-scalar HelloTest.mote[21].mobility y 50
-scalar HelloTest.mote[21].mobility z 0
-scalar HelloTest.mote[22].mobility x 50
-scalar HelloTest.mote[22].mobility y 50
-scalar HelloTest.mote[22].mobility z 0
-scalar HelloTest.mote[23].mobility x 70
-scalar HelloTest.mote[23].mobility y 50
-scalar HelloTest.mote[23].mobility z 0
-scalar HelloTest.mote[24].mobility x 90
-scalar HelloTest.mote[24].mobility y 50
-scalar HelloTest.mote[24].mobility z 0
-scalar HelloTest.mote[25].mobility x 110
-scalar HelloTest.mote[25].mobility y 50
-scalar HelloTest.mote[25].mobility z 0
-scalar HelloTest.mote[26].mobility x 130
-scalar HelloTest.mote[26].mobility y 50
-scalar HelloTest.mote[26].mobility z 0
-scalar HelloTest.mote[27].mobility x 150
-scalar HelloTest.mote[27].mobility y 50
-scalar HelloTest.mote[27].mobility z 0
-scalar HelloTest.mote[28].mobility x 170
-scalar HelloTest.mote[28].mobility y 50
-scalar HelloTest.mote[28].mobility z 0
-scalar HelloTest.mote[29].mobility x 190
-scalar HelloTest.mote[29].mobility y 50
-scalar HelloTest.mote[29].mobility z 0
-scalar HelloTest.mote[30].mobility x 10
-scalar HelloTest.mote[30].mobility y 70
-scalar HelloTest.mote[30].mobility z 0
-scalar HelloTest.mote[31].mobility x 30
-scalar HelloTest.mote[31].mobility y 70
-scalar HelloTest.mote[31].mobility z 0
-scalar HelloTest.mote[32].mobility x 50
-scalar HelloTest.mote[32].mobility y 70
-scalar HelloTest.mote[32].mobility z 0
-scalar HelloTest.mote[33].mobility x 70
-scalar HelloTest.mote[33].mobility y 70
-scalar HelloTest.mote[33].mobility z 0
-scalar HelloTest.mote[34].mobility x 90
-scalar HelloTest.mote[34].mobility y 70
-scalar HelloTest.mote[34].mobility z 0
-scalar HelloTest.mote[35].mobility x 110
-scalar HelloTest.mote[35].mobility y 70
-scalar HelloTest.mote[35].mobility z 0
-scalar HelloTest.mote[36].mobility x 130
-scalar HelloTest.mote[36].mobility y 70
-scalar HelloTest.mote[36].mobility z 0
-scalar HelloTest.mote[37].mobility x 150
-scalar HelloTest.mote[37].mobility y 70
-scalar HelloTest.mote[37].mobility z 0
-scalar HelloTest.mote[38].mobility x 170
-scalar HelloTest.mote[38].mobility y 70
-scalar HelloTest.mote[38].mobility z 0
-scalar HelloTest.mote[39].mobility x 190
-scalar HelloTest.mote[39].mobility y 70
-scalar HelloTest.mote[39].mobility z 0
-scalar HelloTest.mote[40].mobility x 10
-scalar HelloTest.mote[40].mobility y 90
-scalar HelloTest.mote[40].mobility z 0
-scalar HelloTest.mote[41].mobility x 30
-scalar HelloTest.mote[41].mobility y 90
-scalar HelloTest.mote[41].mobility z 0
-scalar HelloTest.mote[42].mobility x 50
-scalar HelloTest.mote[42].mobility y 90
-scalar HelloTest.mote[42].mobility z 0
-scalar HelloTest.mote[43].mobility x 70
-scalar HelloTest.mote[43].mobility y 90
-scalar HelloTest.mote[43].mobility z 0
-scalar HelloTest.mote[44].mobility x 90
-scalar HelloTest.mote[44].mobility y 90
-scalar HelloTest.mote[44].mobility z 0
-scalar HelloTest.mote[45].mobility x 110
-scalar HelloTest.mote[45].mobility y 90
-scalar HelloTest.mote[45].mobility z 0
-scalar HelloTest.mote[46].mobility x 130
-scalar HelloTest.mote[46].mobility y 90
-scalar HelloTest.mote[46].mobility z 0
-scalar HelloTest.mote[47].mobility x 150
-scalar HelloTest.mote[47].mobility y 90
-scalar HelloTest.mote[47].mobility z 0
-scalar HelloTest.mote[48].mobility x 170
-scalar HelloTest.mote[48].mobility y 90
-scalar HelloTest.mote[48].mobility z 0
-scalar HelloTest.mote[49].mobility x 190
-scalar HelloTest.mote[49].mobility y 90
-scalar HelloTest.mote[49].mobility z 0
-scalar HelloTest.mote[50].mobility x 10
-scalar HelloTest.mote[50].mobility y 110
-scalar HelloTest.mote[50].mobility z 0
-scalar HelloTest.mote[51].mobility x 30
-scalar HelloTest.mote[51].mobility y 110
-scalar HelloTest.mote[51].mobility z 0
-scalar HelloTest.mote[52].mobility x 50
-scalar HelloTest.mote[52].mobility y 110
-scalar HelloTest.mote[52].mobility z 0
-scalar HelloTest.mote[53].mobility x 70
-scalar HelloTest.mote[53].mobility y 110
-scalar HelloTest.mote[53].mobility z 0
-scalar HelloTest.mote[54].mobility x 90
-scalar HelloTest.mote[54].mobility y 110
-scalar HelloTest.mote[54].mobility z 0
-scalar HelloTest.mote[55].mobility x 110
-scalar HelloTest.mote[55].mobility y 110
-scalar HelloTest.mote[55].mobility z 0
-scalar HelloTest.mote[56].mobility x 130
-scalar HelloTest.mote[56].mobility y 110
-scalar HelloTest.mote[56].mobility z 0
-scalar HelloTest.mote[57].mobility x 150
-scalar HelloTest.mote[57].mobility y 110
-scalar HelloTest.mote[57].mobility z 0
-scalar HelloTest.mote[58].mobility x 170
-scalar HelloTest.mote[58].mobility y 110
-scalar HelloTest.mote[58].mobility z 0
-scalar HelloTest.mote[59].mobility x 190
-scalar HelloTest.mote[59].mobility y 110
-scalar HelloTest.mote[59].mobility z 0
-scalar HelloTest.mote[60].mobility x 10
-scalar HelloTest.mote[60].mobility y 130
-scalar HelloTest.mote[60].mobility z 0
-scalar HelloTest.mote[61].mobility x 30
-scalar HelloTest.mote[61].mobility y 130
-scalar HelloTest.mote[61].mobility z 0
-scalar HelloTest.mote[62].mobility x 50
-scalar HelloTest.mote[62].mobility y 130
-scalar HelloTest.mote[62].mobility z 0
-scalar HelloTest.mote[63].mobility x 70
-scalar HelloTest.mote[63].mobility y 130
-scalar HelloTest.mote[63].mobility z 0
-scalar HelloTest.mote[64].mobility x 90
-scalar HelloTest.mote[64].mobility y 130
-scalar HelloTest.mote[64].mobility z 0
-scalar HelloTest.mote[65].mobility x 110
-scalar HelloTest.mote[65].mobility y 130
-scalar HelloTest.mote[65].mobility z 0
-scalar HelloTest.mote[66].mobility x 130
-scalar HelloTest.mote[66].mobility y 130
-scalar HelloTest.mote[66].mobility z 0
-scalar HelloTest.mote[67].mobility x 150
-scalar HelloTest.mote[67].mobility y 130
-scalar HelloTest.mote[67].mobility z 0
-scalar HelloTest.mote[68].mobility x 170
-scalar HelloTest.mote[68].mobility y 130
-scalar HelloTest.mote[68].mobility z 0
-scalar HelloTest.mote[69].mobility x 190
-scalar HelloTest.mote[69].mobility y 130
-scalar HelloTest.mote[69].mobility z 0
-scalar HelloTest.mote[70].mobility x 10
-scalar HelloTest.mote[70].mobility y 150
-scalar HelloTest.mote[70].mobility z 0
-scalar HelloTest.mote[71].mobility x 30
-scalar HelloTest.mote[71].mobility y 150
-scalar HelloTest.mote[71].mobility z 0
-scalar HelloTest.mote[72].mobility x 50
-scalar HelloTest.mote[72].mobility y 150
-scalar HelloTest.mote[72].mobility z 0
-scalar HelloTest.mote[73].mobility x 70
-scalar HelloTest.mote[73].mobility y 150
-scalar HelloTest.mote[73].mobility z 0
-scalar HelloTest.mote[74].mobility x 90
-scalar HelloTest.mote[74].mobility y 150
-scalar HelloTest.mote[74].mobility z 0
-scalar HelloTest.mote[75].mobility x 110
-scalar HelloTest.mote[75].mobility y 150
-scalar HelloTest.mote[75].mobility z 0
-scalar HelloTest.mote[76].mobility x 130
-scalar HelloTest.mote[76].mobility y 150
-scalar HelloTest.mote[76].mobility z 0
-scalar HelloTest.mote[77].mobility x 150
-scalar HelloTest.mote[77].mobility y 150
-scalar HelloTest.mote[77].mobility z 0
-scalar HelloTest.mote[78].mobility x 170
-scalar HelloTest.mote[78].mobility y 150
-scalar HelloTest.mote[78].mobility z 0
-scalar HelloTest.mote[79].mobility x 190
-scalar HelloTest.mote[79].mobility y 150
-scalar HelloTest.mote[79].mobility z 0
-scalar HelloTest.mote[80].mobility x 10
-scalar HelloTest.mote[80].mobility y 170
-scalar HelloTest.mote[80].mobility z 0
-scalar HelloTest.mote[81].mobility x 30
-scalar HelloTest.mote[81].mobility y 170
-scalar HelloTest.mote[81].mobility z 0
-scalar HelloTest.mote[82].mobility x 50
-scalar HelloTest.mote[82].mobility y 170
-scalar HelloTest.mote[82].mobility z 0
-scalar HelloTest.mote[83].mobility x 70
-scalar HelloTest.mote[83].mobility y 170
-scalar HelloTest.mote[83].mobility z 0
-scalar HelloTest.mote[84].mobility x 90
-scalar HelloTest.mote[84].mobility y 170
-scalar HelloTest.mote[84].mobility z 0
-scalar HelloTest.mote[85].mobility x 110
-scalar HelloTest.mote[85].mobility y 170
-scalar HelloTest.mote[85].mobility z 0
-scalar HelloTest.mote[86].mobility x 130
-scalar HelloTest.mote[86].mobility y 170
-scalar HelloTest.mote[86].mobility z 0
-scalar HelloTest.mote[87].mobility x 150
-scalar HelloTest.mote[87].mobility y 170
-scalar HelloTest.mote[87].mobility z 0
-scalar HelloTest.mote[88].mobility x 170
-scalar HelloTest.mote[88].mobility y 170
-scalar HelloTest.mote[88].mobility z 0
-scalar HelloTest.mote[89].mobility x 190
-scalar HelloTest.mote[89].mobility y 170
-scalar HelloTest.mote[89].mobility z 0
-scalar HelloTest.mote[90].mobility x 10
-scalar HelloTest.mote[90].mobility y 190
-scalar HelloTest.mote[90].mobility z 0
-scalar HelloTest.mote[91].mobility x 30
-scalar HelloTest.mote[91].mobility y 190
-scalar HelloTest.mote[91].mobility z 0
-scalar HelloTest.mote[92].mobility x 50
-scalar HelloTest.mote[92].mobility y 190
-scalar HelloTest.mote[92].mobility z 0
-scalar HelloTest.mote[93].mobility x 70
-scalar HelloTest.mote[93].mobility y 190
-scalar HelloTest.mote[93].mobility z 0
-scalar HelloTest.mote[94].mobility x 90
-scalar HelloTest.mote[94].mobility y 190
-scalar HelloTest.mote[94].mobility z 0
-scalar HelloTest.mote[95].mobility x 110
-scalar HelloTest.mote[95].mobility y 190
-scalar HelloTest.mote[95].mobility z 0
-scalar HelloTest.mote[96].mobility x 130
-scalar HelloTest.mote[96].mobility y 190
-scalar HelloTest.mote[96].mobility z 0
-scalar HelloTest.mote[97].mobility x 150
-scalar HelloTest.mote[97].mobility y 190
-scalar HelloTest.mote[97].mobility z 0
-scalar HelloTest.mote[98].mobility x 170
-scalar HelloTest.mote[98].mobility y 190
-scalar HelloTest.mote[98].mobility z 0
-scalar HelloTest.mote[99].mobility x 190
-scalar HelloTest.mote[99].mobility y 190
-scalar HelloTest.mote[99].mobility z 0
 

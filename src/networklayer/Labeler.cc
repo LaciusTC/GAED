@@ -26,8 +26,8 @@ Define_Module(Labeler);
 void Labeler::initialize(int stage)
 {
     if(stage == inet::INITSTAGE_LOCAL){
-        const char* status = par("status");
-        this->status = strToStatus(status);
+        this->status = strToStatus(par("status"));
+        WATCH(status);
     }
     else if (stage == inet::INITSTAGE_NETWORK_LAYER) {
         registerService(inet::Protocol::label, nullptr, gate("labelerIn"));
@@ -69,15 +69,16 @@ void Labeler::processPacket(inet::Packet *pkt)
     newLabelerHeader->setTtl(newLabelerHeader->getTtl() - 1);
     newLabelerHeader->setSrc(inet::L3Address(label));
     dPkt->insertAtFront(newLabelerHeader);
+    //auto addressInd = request->getTag<L3AddressInd>();
     pkt = dPkt;
     delete dPkt;
 }
 
 Labeler::Status Labeler::strToStatus(const char* status) {
     Status sts;
-    if (status == "INITIATOR")
+    if (!strcmp(status,"INITIATOR"))
         sts = INITIATOR;
-    else if (status == "IDLE")
+    else if (!strcmp(status,"IDLE"))
         sts = IDLE;
     else
         sts = DONE;
@@ -98,10 +99,22 @@ inet::Packet* Labeler::encapsulate(inet::LabelerPacketType type){
     // Asignar estatus
     labelInfo->setStatus(inet::NodeStatus::LABELED);
     // Asignar numero de secuencia
-    labelInfo->setSeqNumber(seqNumber++);
+    labelInfo->setSeqNumber(++seqNumber);
     // Asignar tiempo de vida del paquete
     labelInfo->setTtl(16);
     // Insertar cabecera.
     labelPacket->insertAtFront(labelInfo);
+    labelPacket->setKind(127);
+
+
+    // swap src and dest
+    // TBD check what to do if dest was multicast etc?
+    auto addressReq = labelPacket->addTag<inet::L3AddressReq>();
+    addressReq->setSrcAddress(inet::L3Address(label));
+    addressReq->setDestAddress(inet::L3Address(label.BROADCAST_ADDRESS));
+
+    labelPacket->addTag<inet::DispatchProtocolReq>()->setProtocol(&inet::Protocol::flooding);
+    labelPacket->addTag<inet::PacketProtocolTag>()->setProtocol(&inet::Protocol::label);
+
     return labelPacket;
 }

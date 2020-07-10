@@ -22,5 +22,6 @@ import inet.networklayer.flooding.Flooding;
 simple ExtendedFlooding extends Flooding
 {
     parameters:
-        long labelerPacketId = default(99999);
+        int labelerPacketType = default(127);
+        @class(ExtendedFlooding);
 }

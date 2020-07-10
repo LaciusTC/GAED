@@ -15,6 +15,8 @@
 
 #include "ExtendedFlooding.h"
 
+Define_Module(ExtendedFlooding);
+
 ExtendedFlooding::ExtendedFlooding() {
     // TODO Auto-generated constructor stub
 }
@@ -24,7 +26,7 @@ ExtendedFlooding::~ExtendedFlooding() {
 }
 
 void ExtendedFlooding::handleUpperPacket(inet::Packet *packet){
-    if(packet->getId() == labelerPacketId){
+    if(packet->getKind() == labelerPacketKind){
         auto labelerHeader = packet->peekAtFront<inet::LabelerPacket>();
         if(labelerHeader->getSeqNumber() > labelerSequenceNumber){
             inet::Flooding::encapsulate(packet);
@@ -63,7 +65,7 @@ void ExtendedFlooding::handleLowerPacket(inet::Packet *packet)
 
     //msg not broadcasted yet
     if (notBroadcasted(floodHeader.get())) {
-        if(packet->getId() == labelerPacketId){ // TODO checar que el paquete sea broadcast.
+        if(packet->getKind() == labelerPacketKind){ // TODO checar que el paquete sea broadcast.
             if(floodHeader->getTtl() >= 1){
                 labelerTtl = floodHeader->getTtl() - 1;
                 // message has to be forwarded to upper layer
@@ -72,7 +74,7 @@ void ExtendedFlooding::handleLowerPacket(inet::Packet *packet)
                 sendUp(packet);
                 nbDataPacketsReceived++;
             }else{
-                EV_INFO << "labelerPacket has reached max number of hops.\n";
+                EV_INFO << "labelerPacket has reached max number of hops.\n" << labelerTtl << "\n";
                 delete packet;
             }
         }
@@ -145,7 +147,7 @@ void ExtendedFlooding::handleLowerPacket(inet::Packet *packet)
 void ExtendedFlooding::initialize(int stage){
     inet::Flooding::initialize(stage);
     if(stage == inet::INITSTAGE_LOCAL)
-        labelerPacketId = par("labelerPacketId");
+        labelerPacketKind = par("labelerPacketType");
 }
 
 void ExtendedFlooding::encapsulate(inet::Packet *packet){

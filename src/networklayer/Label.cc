@@ -69,4 +69,12 @@ Label Label::getPrefix(int prefixLength) {
     return label;
 }
 
+std::string Label::str() {
+    std::string cad;
+    for (auto& t : addr.symbol) {
+        cad.push_back(t);
+    }
+    return cad;
+}
+
 } // namespace inet

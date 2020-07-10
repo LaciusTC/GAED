@@ -19,7 +19,6 @@ import inet.networklayer.common.SimpleNetworkLayer;
 import simplenetwork.contract.INeighborDiscoveryProtocol;
 import simplenetwork.networklayer.HelloProtocol;
 import simplenetwork.networklayer.Labeler;
-import simplenetwork.networklayer.Label;
 //
 // TODO auto-generated type
 //
@@ -36,9 +35,6 @@ module ExtendedSimpleNetworkLayer extends SimpleNetworkLayer
         }
         labeler: Labeler{
             @display("p=150,100");
-        }
-        label : Label{
-            @display("p=100,100");
         }
     connections:
         lp.out++ --> ndp.In;
