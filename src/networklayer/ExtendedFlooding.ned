@@ -14,10 +14,14 @@
 // 
 
 package simplenetwork.networklayer;
+import inet.networklayer.flooding.Flooding;
 
 //
 // TODO auto-generated type
 //
-network ExtendedFlooding
+simple ExtendedFlooding extends Flooding
 {
+    parameters:
+        int labelerPacketType = default(127);
+        @class(ExtendedFlooding);
 }

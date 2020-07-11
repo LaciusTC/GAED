@@ -13,17 +13,30 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // 
 
-package simplenetwork.networklayer;
+import inet.common.INETDefs;
+import inet.common.packet.chunk.Chunk;
+import inet.networklayer.common.L3Address;
+namespace inet;
 
+enum LabelerPacketType {
+    REQ   = 10;
+    OTHER = 11;
+}
+
+enum NodeStatus {
+    UNKNOWN   = 0;
+    LABELED   = 1;
+    UNLABELED = 2;
+}
 //
-// TODO auto-generated type
+// TODO generated message class
 //
-simple Labeler
-{
-    parameters:
-    	@display("i=block/fork"); //TODO Change icon
-    	string status @enum("INITIATOR", "IDLE", "DONE") = default("IDLE");
-    gates:
-        input  labelerIn @labels(Input port);
-        output labelerOut @labels(Output port);
+class LabelerPacket extends FieldsChunk {
+    L3Address src;
+    L3Address dest;
+    LabelerPacketType type;
+    NodeStatus status;
+    long seqNumber;
+    long ttl;
+    chunkLength = B(56); //Longitud en bytes del mensaje.
 }

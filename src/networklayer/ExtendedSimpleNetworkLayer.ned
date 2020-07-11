@@ -19,7 +19,6 @@ import inet.networklayer.common.SimpleNetworkLayer;
 import simplenetwork.contract.INeighborDiscoveryProtocol;
 import simplenetwork.networklayer.HelloProtocol;
 import simplenetwork.networklayer.Labeler;
-import simplenetwork.networklayer.Label;
 //
 // TODO auto-generated type
 //
@@ -28,21 +27,18 @@ module ExtendedSimpleNetworkLayer extends SimpleNetworkLayer
     parameters:
         @display("i=block/fork");
     submodules:
-        ndp: <default("HelloProtocol")> like INeighborDiscoveryProtocol {
-            @display("p=461,300");
-        }
-        nc: NeighborCache {
-            @display("p=520,300");
-        }
+        // ndp: <default("HelloProtocol")> like INeighborDiscoveryProtocol {
+        //     @display("p=461,300");
+        // }
+        // nc: NeighborCache {
+        //     @display("p=520,300");
+        // }
         labeler: Labeler{
             @display("p=150,100");
         }
-        label : Label{
-            @display("p=100,100");
-        }
     connections:
-        lp.out++ --> ndp.In;
-        ndp.Out --> lp.in++;
+        // lp.out++ --> ndp.In;
+        // ndp.Out --> lp.in++;
         labeler.labelerIn <-- up.out++;
         labeler.labelerOut --> up.in++;
 

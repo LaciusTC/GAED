@@ -16,10 +16,36 @@
 #ifndef NETWORKLAYER_EXTENDEDFLOODING_H_
 #define NETWORKLAYER_EXTENDEDFLOODING_H_
 
-class ExtendedFlooding {
+#include "inet/networklayer/common/L3Address.h"
+#include "inet/networklayer/common/L3AddressTag_m.h"
+#include "inet/networklayer/flooding/Flooding.h"
+#include "../msg/LabelerPacket_m.h"
+#include "inet/networklayer/flooding/FloodingHeader_m.h"
+#include "inet/networklayer/common/HopLimitTag_m.h"
+
+#include "inet/common/ProtocolTag_m.h"
+#include "inet/linklayer/common/MacAddressTag_m.h"
+#include "inet/networklayer/common/HopLimitTag_m.h"
+#include "inet/networklayer/contract/IL3AddressType.h"
+
+class ExtendedFlooding : public inet::Flooding {
+protected:
+    //std::unordered_map<unsigned, unsigned>labelerPacketTtl;
+    short labelerPacketKind;
+    unsigned labelerSequenceNumber = 0;
+    unsigned labelerTtl;
+protected:
+    /** @brief Handle messages from upper layer */
+    virtual void handleUpperPacket(inet::Packet *packet) override;
+
+    /** @brief Handle messages from lower layer */
+    virtual void handleLowerPacket(inet::Packet *packet) override;
+
+    virtual void encapsulate(inet::Packet *packet);
 public:
     ExtendedFlooding();
     virtual ~ExtendedFlooding();
+    virtual void initialize(int) override;
 };
 
 #endif /* NETWORKLAYER_EXTENDEDFLOODING_H_ */

@@ -2,7 +2,7 @@
 # OMNeT++/OMNEST Makefile for simpleNetwork
 #
 # This file was generated with the command:
-#  opp_makemake -f --deep -I/home/juan/inet4/src -I/home/juan/inet4/src/inet/common/ -L/home/juan/inet4/src/ -o simpleNetwork -lINET_dbg
+#  opp_makemake -f --deep -I/home/juan/inet4/src -L/home/juan/inet4/src/ -o simpleNetwork -lINET_dbg
 #
 
 # Name of target to be created (-o option)
@@ -16,7 +16,7 @@ USERIF_LIBS = $(ALL_ENV_LIBS) # that is, $(TKENV_LIBS) $(QTENV_LIBS) $(CMDENV_LI
 #USERIF_LIBS = $(QTENV_LIBS)
 
 # C++ include paths (with -I)
-INCLUDE_PATH = -I/home/juan/inet4/src -I/home/juan/inet4/src/inet/common/
+INCLUDE_PATH = -I/home/juan/inet4/src
 
 # Additional object and library files to link with
 EXTRA_OBJS =
@@ -30,11 +30,21 @@ PROJECTRELATIVE_PATH = src
 O = $(PROJECT_OUTPUT_DIR)/$(CONFIGNAME)/$(PROJECTRELATIVE_PATH)
 
 # Object files for local .cc, .msg and .sm files
-OBJS = $O/base/NeighborDiscoveryProtocolBase.o $O/networklayer/HelloProtocol.o $O/networklayer/NeighborCache.o $O/msg/Hello_m.o
+OBJS = \
+    $O/base/NeighborDiscoveryProtocolBase.o \
+    $O/networklayer/ExtendedFlooding.o \
+    $O/networklayer/HelloProtocol.o \
+    $O/networklayer/Label.o \
+    $O/networklayer/LabelAddressType.o \
+    $O/networklayer/Labeler.o \
+    $O/networklayer/NeighborCache.o \
+    $O/msg/Hello_m.o \
+    $O/msg/LabelerPacket_m.o
 
 # Message files
 MSGFILES = \
-    msg/Hello.msg
+    msg/Hello.msg \
+    msg/LabelerPacket.msg
 
 # SM files
 SMFILES =

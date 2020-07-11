@@ -1,5 +1,5 @@
-../out/gcc-debug/src/msg/Hello_m.o: msg/Hello_m.cc msg/Hello_m.h \
- /home/juan/omnetpp5/include/omnetpp.h \
+../out/gcc-debug/src/msg/LabelerPacket_m.o: msg/LabelerPacket_m.cc \
+ msg/LabelerPacket_m.h /home/juan/omnetpp5/include/omnetpp.h \
  /home/juan/inet4/src/inet/common/INETDefs_m.h \
  /home/juan/inet4/src/inet/common/INETDefs.h \
  /home/juan/inet4/src/inet/common/precompiled_debug.h \
@@ -30,9 +30,14 @@
  /home/juan/inet4/src/inet/common/packet/chunk/SequenceChunk.h \
  /home/juan/inet4/src/inet/common/packet/chunk/SliceChunk.h \
  /home/juan/inet4/src/inet/common/packet/chunk/FieldsChunk.h \
- /home/juan/inet4/src/inet/linklayer/common/MacAddress_m.h
+ /home/juan/inet4/src/inet/networklayer/common/L3Address_m.h \
+ /home/juan/inet4/src/inet/networklayer/common/L3Address.h \
+ /home/juan/inet4/src/inet/networklayer/common/ModuleIdAddress.h \
+ /home/juan/inet4/src/inet/networklayer/common/ModulePathAddress.h \
+ /home/juan/inet4/src/inet/networklayer/contract/clns/ClnsAddress.h \
+ /home/juan/inet4/src/inet/networklayer/contract/label/Label.h
 
-msg/Hello_m.h:
+msg/LabelerPacket_m.h:
 
 /home/juan/omnetpp5/include/omnetpp.h:
 
@@ -96,4 +101,14 @@ msg/Hello_m.h:
 
 /home/juan/inet4/src/inet/common/packet/chunk/FieldsChunk.h:
 
-/home/juan/inet4/src/inet/linklayer/common/MacAddress_m.h:
+/home/juan/inet4/src/inet/networklayer/common/L3Address_m.h:
+
+/home/juan/inet4/src/inet/networklayer/common/L3Address.h:
+
+/home/juan/inet4/src/inet/networklayer/common/ModuleIdAddress.h:
+
+/home/juan/inet4/src/inet/networklayer/common/ModulePathAddress.h:
+
+/home/juan/inet4/src/inet/networklayer/contract/clns/ClnsAddress.h:
+
+/home/juan/inet4/src/inet/networklayer/contract/label/Label.h:
