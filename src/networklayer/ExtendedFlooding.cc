@@ -70,6 +70,7 @@ void ExtendedFlooding::handleLowerPacket(inet::Packet *packet)
                 labelerTtl = floodHeader->getTtl() - 1;
                 // message has to be forwarded to upper layer
                 nbHops = nbHops + (defaultTtl + 1 - floodHeader->getTtl());
+                EV_INFO << "Sending packet to labeler\n";
                 decapsulate(packet);
                 sendUp(packet);
                 nbDataPacketsReceived++;

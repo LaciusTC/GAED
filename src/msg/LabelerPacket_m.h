@@ -1,5 +1,5 @@
 //
-// Generated file, do not edit! Created by nedtool 5.6 from LabelerPacket.msg.
+// Generated file, do not edit! Created by nedtool 5.6 from msg/LabelerPacket.msg.
 //
 
 #ifndef __INET_LABELERPACKET_M_H
@@ -32,7 +32,7 @@ class LabelerPacket;
 namespace inet {
 
 /**
- * Enum generated from <tt>LabelerPacket.msg:21</tt> by nedtool.
+ * Enum generated from <tt>msg/LabelerPacket.msg:21</tt> by nedtool.
  * <pre>
  * enum LabelerPacketType
  * {
@@ -47,7 +47,7 @@ enum LabelerPacketType {
 };
 
 /**
- * Enum generated from <tt>LabelerPacket.msg:26</tt> by nedtool.
+ * Enum generated from <tt>msg/LabelerPacket.msg:26</tt> by nedtool.
  * <pre>
  * enum NodeStatus
  * {
@@ -64,7 +64,7 @@ enum NodeStatus {
 };
 
 /**
- * Class generated from <tt>LabelerPacket.msg:34</tt> by nedtool.
+ * Class generated from <tt>msg/LabelerPacket.msg:34</tt> by nedtool.
  * <pre>
  * //
  * // TODO generated message class

@@ -18,6 +18,8 @@
 #include <cstdint>
 #include <string>
 #include <cstdlib>
+#include <iostream>
+#include <iomanip>
 
 namespace inet {
 
@@ -50,8 +52,11 @@ public:
     std::string str();
     Address getLabel() const { return addr; }
     Label getPrefix(int);
-    void setLabel(Address addr) { this->addr = addr; }
+    uint8_t getSymbol(size_t i) const { return addr.symbol[i]; }
+    void setLabel(const Label& label) {this->addr = label.addr; this->type = label.type;}
+    void setLabel(Address addr, Type t) { this->addr = addr; this->type = t;}
     void setPrefix(uint8_t index, uint8_t value) { addr.symbol[index] = value; }
+    void setType(Type t) { type = t; }
 
     bool assertSize(const char* cad) { return sizeof(cad)-1 == 16; }
     bool isUnspecified() { return !addr.numeric[0] && !addr.numeric[1]; }
@@ -68,6 +73,19 @@ public:
 
     bool matches(const Label& label, int prefixLength) { return false; } // TODO implementar para encaminamiento.
 };
+
+inline std::ostream& operator<<(std::ostream& os, const Label& address)
+{
+    for (int i = 15; i >= 0; i--) {
+        if (i > 0)
+            os << std::setfill('0') << std::setw(2) << std::hex 
+               << static_cast<int>(address.getSymbol(i)) << ':';
+        else
+            os << std::setfill('0') << std::setw(2) << std::hex 
+               << static_cast<int>(address.getSymbol(i));
+    }
+    return os;
+}
 
 } // namespace inet
 

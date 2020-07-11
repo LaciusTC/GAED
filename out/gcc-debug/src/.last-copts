@@ -1,1 +1,1 @@
--g -Wall -MMD -MP -MF .d  -fPIC  -fno-omit-frame-pointer -DHAVE_SWAPCONTEXT -DWITH_MPI -DXMLPARSER=libxml -DPREFER_QTENV -DWITH_QTENV -DWITH_PARSIM -DWITH_NETBUILDER -DWITH_OSG -DWITH_OSGEARTH   -I/home/juan/inet4/src -I/home/juan/omnetpp5/include
+-g -Wall -MMD -MP -MF .d  -fPIC  -fno-omit-frame-pointer -DHAVE_SWAPCONTEXT -DXMLPARSER=expat -DPREFER_QTENV -DWITH_QTENV -DWITH_PARSIM -DWITH_NETBUILDER   -I/home/geo/inet4/src -I/home/geo/omnetpp5/include

@@ -1,4 +1,8 @@
 {
-    "editor.fontSize": 18,
-    "terminal.integrated.fontSize": 20
+    "editor.fontSize": 20,
+    "terminal.integrated.fontSize": 20,
+    "files.associations": {
+        "iosfwd": "cpp",
+        "ostream": "cpp"
+    }
 }

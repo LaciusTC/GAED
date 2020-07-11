@@ -18,6 +18,7 @@
 
 namespace inet {
 
+// Todo reparar coonstructor
 Label::Label()
     : addr()
     , type(Type::UNDEFINED)

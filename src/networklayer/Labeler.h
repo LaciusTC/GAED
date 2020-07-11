@@ -53,7 +53,7 @@ class Labeler : public omnetpp::cSimpleModule
   public:
     Labeler()
       : status(Status::IDLE)
-      , label()
+      , label(0,0)
       , timer(nullptr)
       , seqNumber(0)
     {}

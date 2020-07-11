@@ -28,12 +28,13 @@ void Labeler::initialize(int stage)
     if(stage == inet::INITSTAGE_LOCAL){
         this->status = strToStatus(par("status"));
         WATCH(status);
+        WATCH(label);
     }
     else if (stage == inet::INITSTAGE_NETWORK_LAYER) {
         registerService(inet::Protocol::label, nullptr, gate("labelerIn"));
         registerProtocol(inet::Protocol::label, gate("labelerOut"), nullptr);
         if (status == Status::INITIATOR) {
-            timer = new omnetpp::cMessage("Start Labelering");
+            timer = new omnetpp::cMessage("Start Labeling");
             scheduleAt(omnetpp::getSimulation()->getWarmupPeriod(), timer);
         }
     }
@@ -43,18 +44,21 @@ void Labeler::handleMessage(omnetpp::cMessage *msg)
 {
     if (status != Status::DONE){
         if (msg->isSelfMessage()) { //Temporizador finaliza, iniciador.
-            label.setPrefix(0,intuniform(1, 253));
+            label.setPrefix(15, intuniform(1, 253));
+            label.setType(inet::Label::Type::UNICAST);
             auto pkt = Labeler::encapsulate(inet::LabelerPacketType::REQ);
-            send(pkt, "labelerOut");
+            EV_INFO << "Label: " << label << '\n';
+            omnetpp::simtime_t delay = uniform(0, 3);
+            sendDelayed(pkt, delay, "labelerOut");
+            std::cout << label << '\n';
             status = Status::DONE;
         } else if (msg->arrivedOn("labelerIn")) {   //Procesa y responde.
             auto pkt = inet::check_and_cast<inet::Packet *>(msg);
-            auto labelerHeader = pkt->peekAtFront<inet::LabelerPacket>();
-            label.setPrefix(labelerHeader->getTtl()-1,intuniform(1, 253));
             processPacket(pkt);
-            send(pkt, "labelerOut");
+            omnetpp::simtime_t delay = uniform(0, 3);
+            sendDelayed(pkt, delay, "labelerOut");
+            std::cout << label << '\n';
             status = Status::DONE;
-            delete pkt;
         }
     } else {
         EV_INFO << "I'm DONE\n";
@@ -64,14 +68,20 @@ void Labeler::handleMessage(omnetpp::cMessage *msg)
 
 void Labeler::processPacket(inet::Packet *pkt)
 {
-    auto dPkt = pkt->dup();
-    auto newLabelerHeader = dPkt->removeAtFront<inet::LabelerPacket>();
+    pkt->trim();    //Ajustar los apuntadores del paquete
+    auto newLabelerHeader = pkt->removeAtFront<inet::LabelerPacket>();
     newLabelerHeader->setTtl(newLabelerHeader->getTtl() - 1);
+    label.setLabel(newLabelerHeader->getSrc().toLabel());
+    label.setPrefix(newLabelerHeader->getTtl()-1,intuniform(1, 253));
     newLabelerHeader->setSrc(inet::L3Address(label));
-    dPkt->insertAtFront(newLabelerHeader);
-    //auto addressInd = request->getTag<L3AddressInd>();
-    pkt = dPkt;
-    delete dPkt;
+    pkt->insertAtFront(newLabelerHeader);
+
+    auto addressReq = pkt->addTagIfAbsent<inet::L3AddressReq>();
+    addressReq->setSrcAddress(label);
+    addressReq->setDestAddress(inet::Label::BROADCAST_ADDRESS);
+
+    pkt->addTagIfAbsent<inet::DispatchProtocolReq>()->setProtocol(&inet::Protocol::flooding);
+    pkt->addTagIfAbsent<inet::PacketProtocolTag>()->setProtocol(&inet::Protocol::label);
 }
 
 Labeler::Status Labeler::strToStatus(const char* status) {
