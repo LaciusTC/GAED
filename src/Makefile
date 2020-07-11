@@ -2,7 +2,7 @@
 # OMNeT++/OMNEST Makefile for simpleNetwork
 #
 # This file was generated with the command:
-#  opp_makemake -f --deep -I/home/geo/inet4/src -L/home/geo/inet4/src/ -o simpleNetwork -lINET_dbg
+#  opp_makemake -f --deep -I/home/juan/inet4/src -L/home/juan/inet4/src/ -o simpleNetwork -lINET_dbg
 #
 
 # Name of target to be created (-o option)
@@ -16,13 +16,13 @@ USERIF_LIBS = $(ALL_ENV_LIBS) # that is, $(TKENV_LIBS) $(QTENV_LIBS) $(CMDENV_LI
 #USERIF_LIBS = $(QTENV_LIBS)
 
 # C++ include paths (with -I)
-INCLUDE_PATH = -I/home/geo/inet4/src
+INCLUDE_PATH = -I/home/juan/inet4/src
 
 # Additional object and library files to link with
 EXTRA_OBJS =
 
 # Additional libraries (-L, -l options)
-LIBS = $(LDFLAG_LIBPATH)/home/geo/inet4/src/  -lINET_dbg
+LIBS = $(LDFLAG_LIBPATH)/home/juan/inet4/src/  -lINET_dbg
 
 # Output directory
 PROJECT_OUTPUT_DIR = ../out
@@ -72,7 +72,7 @@ include $(CONFIGFILE)
 # Simulation kernel and user interface libraries
 OMNETPP_LIBS = $(OPPMAIN_LIB) $(USERIF_LIBS) $(KERNEL_LIBS) $(SYS_LIBS)
 ifneq ($(TOOLCHAIN_NAME),clangc2)
-LIBS += -Wl,-rpath,$(abspath /home/geo/inet4/src/)
+LIBS += -Wl,-rpath,$(abspath /home/juan/inet4/src/)
 endif
 
 COPTS = $(CFLAGS) $(IMPORT_DEFINES)  $(INCLUDE_PATH) -I$(OMNETPP_INCL_DIR)

@@ -1,14 +1,14 @@
 version 2
-run Hello-0-20200711-00:47:41-5468
+run Hello-0-20200711-11:02:53-6728
 attr configname Hello
-attr datetime 20200711-00:47:41
+attr datetime 20200711-11:02:53
 attr experiment Hello
 attr inifile omnetpp.ini
 attr iterationvars $0=10
 attr iterationvarsf 10-
 attr measurement $0=10
 attr network HelloTest
-attr processid 5468
+attr processid 6728
 attr repetition 0
 attr replication #0
 attr resultdir results
