@@ -20,10 +20,13 @@ Register_Abstract_Class(NeighborDiscoveryProtocolBase);
 NeighborDiscoveryProtocolBase::NeighborDiscoveryProtocolBase()
     : broadcastTimer(nullptr)
     , cache(nullptr)
+    , mobil(nullptr)
     , mac()
     , interfaceTable(nullptr)
     , interfaceId(0)
     , hostIndex(0)
+    , x(0.0)
+    , y(0.0)
 {
     // TODO Auto-generated constructor stub
 }
@@ -49,6 +52,8 @@ void NeighborDiscoveryProtocolBase::initialize(int stage){
         interfaceTable = inet::getModuleFromPar<inet::IInterfaceTable>(
             par("interfaceTableModule"), this
         );
+        mobil = omnetpp::check_and_cast_nullable<inet::IMobility *>(
+            getParentModule()->getParentModule()->getSubmodule("mobility"));
         WATCH(hostIndex);
     }
     else if (stage == inet::INITSTAGE_NETWORK_LAYER)
@@ -67,5 +72,14 @@ void NeighborDiscoveryProtocolBase::initialize(int stage){
             gate(outputGateId),
             nullptr
         );
+    } else if (stage == inet::INITSTAGE_LAST) {
+        if (mobil == nullptr) 
+            throw omnetpp::cRuntimeError("No mobility module");
+        else {
+            x = mobil->getCurrentPosition().x;
+            y = mobil->getCurrentPosition().y;
+            cache->setPosition(x,y);
+        }
+            
     }
 }

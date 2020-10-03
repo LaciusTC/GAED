@@ -23,6 +23,11 @@
 #include "../msg/LabelerPacket_m.h"
 #include "inet/networklayer/common/L3Address.h"
 #include "Label.h"
+#include "inet/common/geometry/common/Coord.h"
+#include "inet/mobility/contract/IMobility.h"
+#include "inet/common/ModuleAccess.h"
+#include "../networklayer/NeighborCache.h"
+
 
 /**
  * TODO
@@ -41,6 +46,9 @@ class Labeler : public omnetpp::cSimpleModule
     inet::Label label;
     omnetpp::cMessage* timer;
     long seqNumber;
+    NeighborCache* cache;
+    inet::IMobility* mobil;
+    double x, y;
 
   protected:
     virtual void processPacket(inet::Packet*);
@@ -56,6 +64,10 @@ class Labeler : public omnetpp::cSimpleModule
       , label(0,0)
       , timer(nullptr)
       , seqNumber(0)
+      , cache(nullptr)
+      , mobil(nullptr)
+      , x(0.0)
+      , y(0.0)
     {}
     ~Labeler() {
       if (timer)

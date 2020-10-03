@@ -29,6 +29,13 @@ void Labeler::initialize(int stage)
         this->status = strToStatus(par("status"));
         WATCH(status);
         WATCH(label);
+        auto hostIndex = inet::getContainingNode(this)->getIndex();
+        auto cacheModule = getSimulation()->getSystemModule()->
+            getSubmodule("mote", hostIndex)->getSubmodule("enl")->
+            getSubmodule("nc");
+        cache = static_cast<NeighborCache*>(cacheModule);
+        mobil = omnetpp::check_and_cast_nullable<inet::IMobility *>(
+            getParentModule()->getParentModule()->getSubmodule("mobility"));
     }
     else if (stage == inet::INITSTAGE_NETWORK_LAYER) {
         registerService(inet::Protocol::label, nullptr, gate("labelerIn"));
@@ -37,6 +44,14 @@ void Labeler::initialize(int stage)
             timer = new omnetpp::cMessage("Start Labeling");
             scheduleAt(omnetpp::getSimulation()->getWarmupPeriod(), timer);
         }
+    } else if (stage == inet::INITSTAGE_LAST) {
+        if (mobil == nullptr) 
+            throw omnetpp::cRuntimeError("No mobility module");
+        else {
+            x = mobil->getCurrentPosition().x;
+            y = mobil->getCurrentPosition().y;
+        }
+            
     }
 }
 

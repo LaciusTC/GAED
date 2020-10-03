@@ -74,12 +74,15 @@ inet::Packet* HelloProtocol::encapsulate(inet::HelloMessageType type){
     helloInfo->setSrcMacAddress(mac);
     // Asignar direccion MAC destino.
     helloInfo->setDestMacAddress(inet::MacAddress::BROADCAST_ADDRESS);
+    // Asignar coordenadas x, y
+    helloInfo->setX(x);
+    helloInfo->setY(y);
     // Insertar cabecera.
     helloPacket->insertAtFront(helloInfo);
     return helloPacket;
 }
 
-// Envia packete.
+// Send packet.
 void HelloProtocol::sendPacket(inet::Packet* pkt){
     // Agregar direccion MAC fuente.
     pkt->addTagIfAbsent<inet::MacAddressReq>()->setSrcAddress(mac);
@@ -108,7 +111,7 @@ void HelloProtocol::recvPacket(inet::Packet* pkt){
     
     // Guardar en la NeighborCache.
     // TODO obtener la etiqueta por apuntador hacia el etiquetador
-    cache->insert(NeighborCache::entry("null",helloInfo->getSrcMacAddress()));
+    cache->insert(NeighborCache::entry("null",helloInfo->getSrcMacAddress(),helloInfo->getX(),helloInfo->getY()));
     
     std::cout << "Vecindario del nodo " << mac << "\n";
     cache->showNeighbor();

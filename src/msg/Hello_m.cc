@@ -1,5 +1,5 @@
 //
-// Generated file, do not edit! Created by nedtool 5.6 from msg/Hello.msg.
+// Generated file, do not edit! Created by nedtool 5.6 from Hello.msg.
 //
 
 // Disable warnings about unused variables, empty switch stmts, etc:
@@ -225,7 +225,7 @@ Register_Class(Hello)
 
 Hello::Hello() : ::inet::FieldsChunk()
 {
-    this->setChunkLength(B(38));
+    this->setChunkLength(B(54));
 
 }
 
@@ -255,6 +255,8 @@ void Hello::copy(const Hello& other)
     this->status = other.status;
     this->srcMacAddress = other.srcMacAddress;
     this->destMacAddress = other.destMacAddress;
+    this->x = other.x;
+    this->y = other.y;
 }
 
 void Hello::parsimPack(omnetpp::cCommBuffer *b) const
@@ -265,6 +267,8 @@ void Hello::parsimPack(omnetpp::cCommBuffer *b) const
     doParsimPacking(b,this->status);
     doParsimPacking(b,this->srcMacAddress);
     doParsimPacking(b,this->destMacAddress);
+    doParsimPacking(b,this->x);
+    doParsimPacking(b,this->y);
 }
 
 void Hello::parsimUnpack(omnetpp::cCommBuffer *b)
@@ -275,6 +279,8 @@ void Hello::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->status);
     doParsimUnpacking(b,this->srcMacAddress);
     doParsimUnpacking(b,this->destMacAddress);
+    doParsimUnpacking(b,this->x);
+    doParsimUnpacking(b,this->y);
 }
 
 size_t Hello::getLabelArraySize() const
@@ -339,6 +345,28 @@ void Hello::setDestMacAddress(const MacAddress& destMacAddress)
     this->destMacAddress = destMacAddress;
 }
 
+double Hello::getX() const
+{
+    return this->x;
+}
+
+void Hello::setX(double x)
+{
+    handleChange();
+    this->x = x;
+}
+
+double Hello::getY() const
+{
+    return this->y;
+}
+
+void Hello::setY(double y)
+{
+    handleChange();
+    this->y = y;
+}
+
 class HelloDescriptor : public omnetpp::cClassDescriptor
 {
   private:
@@ -349,6 +377,8 @@ class HelloDescriptor : public omnetpp::cClassDescriptor
         FIELD_status,
         FIELD_srcMacAddress,
         FIELD_destMacAddress,
+        FIELD_x,
+        FIELD_y,
     };
   public:
     HelloDescriptor();
@@ -411,7 +441,7 @@ const char *HelloDescriptor::getProperty(const char *propertyname) const
 int HelloDescriptor::getFieldCount() const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
-    return basedesc ? 5+basedesc->getFieldCount() : 5;
+    return basedesc ? 7+basedesc->getFieldCount() : 7;
 }
 
 unsigned int HelloDescriptor::getFieldTypeFlags(int field) const
@@ -428,8 +458,10 @@ unsigned int HelloDescriptor::getFieldTypeFlags(int field) const
         FD_ISEDITABLE,    // FIELD_status
         0,    // FIELD_srcMacAddress
         0,    // FIELD_destMacAddress
+        FD_ISEDITABLE,    // FIELD_x
+        FD_ISEDITABLE,    // FIELD_y
     };
-    return (field >= 0 && field < 5) ? fieldTypeFlags[field] : 0;
+    return (field >= 0 && field < 7) ? fieldTypeFlags[field] : 0;
 }
 
 const char *HelloDescriptor::getFieldName(int field) const
@@ -446,8 +478,10 @@ const char *HelloDescriptor::getFieldName(int field) const
         "status",
         "srcMacAddress",
         "destMacAddress",
+        "x",
+        "y",
     };
-    return (field >= 0 && field < 5) ? fieldNames[field] : nullptr;
+    return (field >= 0 && field < 7) ? fieldNames[field] : nullptr;
 }
 
 int HelloDescriptor::findField(const char *fieldName) const
@@ -459,6 +493,8 @@ int HelloDescriptor::findField(const char *fieldName) const
     if (fieldName[0] == 's' && strcmp(fieldName, "status") == 0) return base+2;
     if (fieldName[0] == 's' && strcmp(fieldName, "srcMacAddress") == 0) return base+3;
     if (fieldName[0] == 'd' && strcmp(fieldName, "destMacAddress") == 0) return base+4;
+    if (fieldName[0] == 'x' && strcmp(fieldName, "x") == 0) return base+5;
+    if (fieldName[0] == 'y' && strcmp(fieldName, "y") == 0) return base+6;
     return basedesc ? basedesc->findField(fieldName) : -1;
 }
 
@@ -476,8 +512,10 @@ const char *HelloDescriptor::getFieldTypeString(int field) const
         "inet::NodeStatus",    // FIELD_status
         "inet::MacAddress",    // FIELD_srcMacAddress
         "inet::MacAddress",    // FIELD_destMacAddress
+        "double",    // FIELD_x
+        "double",    // FIELD_y
     };
-    return (field >= 0 && field < 5) ? fieldTypeStrings[field] : nullptr;
+    return (field >= 0 && field < 7) ? fieldTypeStrings[field] : nullptr;
 }
 
 const char **HelloDescriptor::getFieldPropertyNames(int field) const
@@ -564,6 +602,8 @@ std::string HelloDescriptor::getFieldValueAsString(void *object, int field, int 
         case FIELD_status: return enum2string(pp->getStatus(), "inet::NodeStatus");
         case FIELD_srcMacAddress: return pp->getSrcMacAddress().str();
         case FIELD_destMacAddress: return pp->getDestMacAddress().str();
+        case FIELD_x: return double2string(pp->getX());
+        case FIELD_y: return double2string(pp->getY());
         default: return "";
     }
 }
@@ -581,6 +621,8 @@ bool HelloDescriptor::setFieldValueAsString(void *object, int field, int i, cons
         case FIELD_label: pp->setLabel(i,(value)); return true;
         case FIELD_type: pp->setType((inet::HelloMessageType)string2enum(value, "inet::HelloMessageType")); return true;
         case FIELD_status: pp->setStatus((inet::NodeStatus)string2enum(value, "inet::NodeStatus")); return true;
+        case FIELD_x: pp->setX(string2double(value)); return true;
+        case FIELD_y: pp->setY(string2double(value)); return true;
         default: return false;
     }
 }

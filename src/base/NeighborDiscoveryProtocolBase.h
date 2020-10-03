@@ -25,15 +25,20 @@
 //#include "inet/linklayer/common/MacAddressTag_m.h"
 #include "inet/common/ProtocolTag_m.h"
 #include "../msg/Hello_m.h"
+#include "inet/common/geometry/common/Coord.h"
+#include "inet/mobility/contract/IMobility.h"
+#include "inet/common/ModuleAccess.h"
 
 class NeighborDiscoveryProtocolBase: public INeighborDiscoveryProtocol {
 protected:
     omnetpp::cMessage* broadcastTimer;
     NeighborCache* cache;
+    inet::IMobility* mobil;
     inet::MacAddress mac;
     inet::IInterfaceTable* interfaceTable;
     int interfaceId;
     int hostIndex;
+    double x, y;
 protected:
     virtual void sendPacket(inet::Packet*) = 0;
     virtual void recvPacket(inet::Packet*) = 0;

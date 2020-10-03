@@ -37,5 +37,7 @@ class Hello extends FieldsChunk {
     NodeStatus status;
     MacAddress srcMacAddress;
     MacAddress destMacAddress;
-    chunkLength = B(38); //Longitud en bytes del mensaje.
+    double x;    // Position x
+    double y;    // Position y
+    chunkLength = B(54); //Longitud en bytes del mensaje.
 }

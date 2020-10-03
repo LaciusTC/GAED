@@ -1,5 +1,5 @@
 //
-// Generated file, do not edit! Created by nedtool 5.6 from msg/Hello.msg.
+// Generated file, do not edit! Created by nedtool 5.6 from Hello.msg.
 //
 
 #ifndef __INET_HELLO_M_H
@@ -32,7 +32,7 @@ class Hello;
 namespace inet {
 
 /**
- * Enum generated from <tt>msg/Hello.msg:22</tt> by nedtool.
+ * Enum generated from <tt>Hello.msg:22</tt> by nedtool.
  * <pre>
  * enum NodeStatus
  * {
@@ -47,7 +47,7 @@ enum NodeStatus {
 };
 
 /**
- * Enum generated from <tt>msg/Hello.msg:27</tt> by nedtool.
+ * Enum generated from <tt>Hello.msg:27</tt> by nedtool.
  * <pre>
  * enum HelloMessageType
  * {
@@ -62,7 +62,7 @@ enum HelloMessageType {
 };
 
 /**
- * Class generated from <tt>msg/Hello.msg:34</tt> by nedtool.
+ * Class generated from <tt>Hello.msg:34</tt> by nedtool.
  * <pre>
  * //
  * // TODO generated message class
@@ -74,7 +74,9 @@ enum HelloMessageType {
  *     NodeStatus status;
  *     MacAddress srcMacAddress;
  *     MacAddress destMacAddress;
- *     chunkLength = B(38); //Longitud en bytes del mensaje.
+ *     double x;    // Position x
+ *     double y;    // Position y
+ *     chunkLength = B(54); //Longitud en bytes del mensaje.
  * }
  * </pre>
  */
@@ -86,6 +88,8 @@ class Hello : public ::inet::FieldsChunk
     inet::NodeStatus status = static_cast<inet::NodeStatus>(-1);
     MacAddress srcMacAddress;
     MacAddress destMacAddress;
+    double x = 0;
+    double y = 0;
 
   private:
     void copy(const Hello& other);
@@ -117,6 +121,10 @@ class Hello : public ::inet::FieldsChunk
     virtual const MacAddress& getDestMacAddress() const;
     virtual MacAddress& getDestMacAddressForUpdate() { handleChange();return const_cast<MacAddress&>(const_cast<Hello*>(this)->getDestMacAddress());}
     virtual void setDestMacAddress(const MacAddress& destMacAddress);
+    virtual double getX() const;
+    virtual void setX(double x);
+    virtual double getY() const;
+    virtual void setY(double y);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const Hello& obj) {obj.parsimPack(b);}

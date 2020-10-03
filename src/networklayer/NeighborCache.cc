@@ -50,7 +50,25 @@ void NeighborCache::insert(const NeighborCache::entry &prefix) {
     if((it == neighborcache.end())){
         it = std::lower_bound(neighborcache.begin(), neighborcache.end(), prefix);
         neighborcache.insert(it, prefix);
+        drawArrow(prefix);
     }
+}
+
+void NeighborCache::drawArrow(const entry& prefix) {
+    omnetpp::cLineFigure *line = new omnetpp::cLineFigure("line");
+    line->setEnd(omnetpp::cFigure::Point(x, y));
+    line->setStart(omnetpp::cFigure::Point(std::get<2>(prefix), std::get<3>(prefix)));
+    line->setLineWidth(1);
+    //line->setLineStyle(omnetpp::cFigure::LINE_DOTTED);
+    //line->setEndArrowhead(omnetpp::cFigure::ARROW_BARBED);
+    line->setZIndex(-1.0);
+    line->setLineColor(omnetpp::cFigure::BLUE);
+    auto simulation_canvas = getSystemModule()->getCanvas();
+    simulation_canvas->addFigure(line);
+    EV_INFO << "X: " << x << "\n";
+    EV_INFO << "Y: " << y << "\n";
+    EV_INFO << "X: " << std::get<2>(prefix) << "\n";
+    EV_INFO << "Y: " << std::get<3>(prefix) << "\n";
 }
 
 std::list<NeighborCache::entry>::const_iterator NeighborCache::begin() const{
@@ -72,6 +90,6 @@ std::list<NeighborCache::entry>::iterator NeighborCache::find(const entry &prefi
 //Imprimir los vecinos.
 void NeighborCache::showNeighbor(){
     for(auto& i: this->neighborcache){
-        std::cout << "\tLabel: " << i.first << " / MAC: " << i.second << "\n";
+        std::cout << "\tLabel: " << std::get<0>(i) << " / MAC: " << std::get<1>(i) << "\n";
     }
 }

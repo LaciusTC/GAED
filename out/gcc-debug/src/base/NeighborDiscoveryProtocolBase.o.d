@@ -56,7 +56,11 @@
  /home/juan/inet4/src/inet/networklayer/contract/label/Label.h \
  /home/juan/inet4/src/inet/common/ModuleAccess.h \
  /home/juan/inet4/src/inet/linklayer/common/InterfaceTag_m.h \
- base/../msg/Hello_m.h
+ base/../msg/Hello_m.h \
+ /home/juan/inet4/src/inet/common/geometry/common/Coord.h \
+ /home/juan/inet4/src/inet/mobility/contract/IMobility.h \
+ /home/juan/inet4/src/inet/common/geometry/common/Quaternion.h \
+ /home/juan/inet4/src/inet/common/geometry/common/EulerAngles.h
 
 base/NeighborDiscoveryProtocolBase.h:
 
@@ -171,3 +175,11 @@ base/../networklayer/NeighborCache.h:
 /home/juan/inet4/src/inet/linklayer/common/InterfaceTag_m.h:
 
 base/../msg/Hello_m.h:
+
+/home/juan/inet4/src/inet/common/geometry/common/Coord.h:
+
+/home/juan/inet4/src/inet/mobility/contract/IMobility.h:
+
+/home/juan/inet4/src/inet/common/geometry/common/Quaternion.h:
+
+/home/juan/inet4/src/inet/common/geometry/common/EulerAngles.h:

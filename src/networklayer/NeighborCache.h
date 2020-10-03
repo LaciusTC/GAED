@@ -20,26 +20,30 @@
 #include <string>
 #include <list>
 #include <algorithm>
+#include <tuple>
 #include "inet/common/INETDefs.h"
 #include "inet/linklayer/common/MacAddressTag_m.h"
 
 class NeighborCache : public omnetpp::cSimpleModule
 {
 public:
-    typedef std::pair<std::string,inet::MacAddress> entry;
+    typedef std::tuple<std::string,inet::MacAddress,double,double> entry;
 private:
     std::list<entry> neighborcache; // (Etiqueta, MAC)
     int neighborsize;
+    double x, y;
 protected:
     virtual int numInitStages() const override {return inet::NUM_INIT_STAGES;}
     virtual void initialize(int stage) override;
     virtual void handleMessage(omnetpp::cMessage*) override;
+    virtual void drawArrow(const entry&);
     std::list<entry>::const_iterator begin() const;
     std::list<entry>::const_iterator end() const;
     std::list<entry>::iterator find(const entry&);
 public:
-    void insert(const entry&);
-    void showNeighbor();
+    virtual void insert(const entry&);
+    virtual void showNeighbor();
+    virtual void setPosition(double x,double y) {this->x=x; this->y=y;}
     NeighborCache(std::list<entry>&);
     NeighborCache();
     ~NeighborCache();
