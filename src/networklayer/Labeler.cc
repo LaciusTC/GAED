@@ -85,10 +85,13 @@ void Labeler::processPacket(inet::Packet *pkt)
 {
     pkt->trim();    //Ajustar los apuntadores del paquete
     auto newLabelerHeader = pkt->removeAtFront<inet::LabelerPacket>();
+    drawTree(newLabelerHeader->getX(),newLabelerHeader->getY());
     newLabelerHeader->setTtl(newLabelerHeader->getTtl() - 1);
     label.setLabel(newLabelerHeader->getSrc().toLabel());
     label.setPrefix(newLabelerHeader->getTtl()-1,intuniform(1, 253));
     newLabelerHeader->setSrc(inet::L3Address(label));
+    newLabelerHeader->setX(x);
+    newLabelerHeader->setY(y);
     pkt->insertAtFront(newLabelerHeader);
 
     auto addressReq = pkt->addTagIfAbsent<inet::L3AddressReq>();
@@ -112,7 +115,7 @@ Labeler::Status Labeler::strToStatus(const char* status) {
 
 // Encapsular paquete.
 inet::Packet* Labeler::encapsulate(inet::LabelerPacketType type){
-    inet::Packet* labelPacket = new inet::Packet(); // Posible error. (label)
+    inet::Packet* labelPacket = new inet::Packet("Flooding"); // Posible error. (label)
     // Apuntador inteligente (se elimina cuando ya no hay referencias a este).
     auto labelInfo = inet::makeShared<inet::LabelerPacket>();
     // Asignar tipo de mensaje.
@@ -127,6 +130,9 @@ inet::Packet* Labeler::encapsulate(inet::LabelerPacketType type){
     labelInfo->setSeqNumber(++seqNumber);
     // Asignar tiempo de vida del paquete
     labelInfo->setTtl(16);
+    //
+    labelInfo->setX(x);
+    labelInfo->setY(y);
     // Insertar cabecera.
     labelPacket->insertAtFront(labelInfo);
     labelPacket->setKind(127);
@@ -142,4 +148,17 @@ inet::Packet* Labeler::encapsulate(inet::LabelerPacketType type){
     labelPacket->addTag<inet::PacketProtocolTag>()->setProtocol(&inet::Protocol::label);
 
     return labelPacket;
+}
+
+void Labeler::drawTree(double srcX, double srcY) {
+    omnetpp::cLineFigure *line = new omnetpp::cLineFigure("branch");
+    line->setEnd(omnetpp::cFigure::Point(x, y));
+    line->setStart(omnetpp::cFigure::Point(srcX,srcY));
+    line->setLineWidth(3);
+    //line->setLineStyle(omnetpp::cFigure::LINE_DOTTED);
+    //line->setEndArrowhead(omnetpp::cFigure::ARROW_BARBED);
+    line->setZIndex(-1.0);
+    line->setLineColor(omnetpp::cFigure::RED);
+    auto simulation_canvas = getSystemModule()->getCanvas();
+    simulation_canvas->addFigure(line);
 }

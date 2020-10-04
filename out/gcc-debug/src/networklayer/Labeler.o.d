@@ -40,11 +40,25 @@
  /home/juan/inet4/src/inet/networklayer/contract/clns/ClnsAddress.h \
  /home/juan/inet4/src/inet/networklayer/contract/label/Label.h \
  networklayer/Label.h \
+ /home/juan/inet4/src/inet/common/geometry/common/Coord.h \
+ /home/juan/inet4/src/inet/mobility/contract/IMobility.h \
+ /home/juan/inet4/src/inet/common/geometry/common/Quaternion.h \
+ /home/juan/inet4/src/inet/common/geometry/common/EulerAngles.h \
+ /home/juan/inet4/src/inet/common/ModuleAccess.h \
+ /home/juan/inet4/src/inet/networklayer/contract/IInterfaceTable.h \
+ /home/juan/inet4/src/inet/networklayer/common/InterfaceEntry.h \
+ /home/juan/inet4/src/inet/common/Simsignals.h \
+ /home/juan/inet4/src/inet/common/Simsignals_m.h \
+ /home/juan/inet4/src/inet/networklayer/common/InterfaceToken.h \
+ networklayer/../networklayer/NeighborCache.h \
+ /home/juan/omnetpp5/include/omnetpp/csimplemodule.h \
+ /home/juan/inet4/src/inet/linklayer/common/MacAddressTag_m.h \
+ /home/juan/inet4/src/inet/common/TagBase_m.h \
+ /home/juan/inet4/src/inet/linklayer/common/MacAddress_m.h \
  /home/juan/inet4/src/inet/common/IProtocolRegistrationListener.h \
  /home/juan/inet4/src/inet/common/Protocol.h \
  /home/juan/inet4/src/inet/common/ProtocolTag_m.h \
  /home/juan/inet4/src/inet/common/Protocol_m.h \
- /home/juan/inet4/src/inet/common/TagBase_m.h \
  /home/juan/inet4/src/inet/networklayer/common/IpProtocolId_m.h \
  /home/juan/inet4/src/inet/networklayer/common/L3AddressTag_m.h
 
@@ -132,6 +146,36 @@ networklayer/../msg/LabelerPacket_m.h:
 
 networklayer/Label.h:
 
+/home/juan/inet4/src/inet/common/geometry/common/Coord.h:
+
+/home/juan/inet4/src/inet/mobility/contract/IMobility.h:
+
+/home/juan/inet4/src/inet/common/geometry/common/Quaternion.h:
+
+/home/juan/inet4/src/inet/common/geometry/common/EulerAngles.h:
+
+/home/juan/inet4/src/inet/common/ModuleAccess.h:
+
+/home/juan/inet4/src/inet/networklayer/contract/IInterfaceTable.h:
+
+/home/juan/inet4/src/inet/networklayer/common/InterfaceEntry.h:
+
+/home/juan/inet4/src/inet/common/Simsignals.h:
+
+/home/juan/inet4/src/inet/common/Simsignals_m.h:
+
+/home/juan/inet4/src/inet/networklayer/common/InterfaceToken.h:
+
+networklayer/../networklayer/NeighborCache.h:
+
+/home/juan/omnetpp5/include/omnetpp/csimplemodule.h:
+
+/home/juan/inet4/src/inet/linklayer/common/MacAddressTag_m.h:
+
+/home/juan/inet4/src/inet/common/TagBase_m.h:
+
+/home/juan/inet4/src/inet/linklayer/common/MacAddress_m.h:
+
 /home/juan/inet4/src/inet/common/IProtocolRegistrationListener.h:
 
 /home/juan/inet4/src/inet/common/Protocol.h:
@@ -139,8 +183,6 @@ networklayer/Label.h:
 /home/juan/inet4/src/inet/common/ProtocolTag_m.h:
 
 /home/juan/inet4/src/inet/common/Protocol_m.h:
-
-/home/juan/inet4/src/inet/common/TagBase_m.h:
 
 /home/juan/inet4/src/inet/networklayer/common/IpProtocolId_m.h:
 

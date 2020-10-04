@@ -1,5 +1,5 @@
 //
-// Generated file, do not edit! Created by nedtool 5.6 from msg/LabelerPacket.msg.
+// Generated file, do not edit! Created by nedtool 5.6 from LabelerPacket.msg.
 //
 
 #ifndef __INET_LABELERPACKET_M_H
@@ -32,7 +32,7 @@ class LabelerPacket;
 namespace inet {
 
 /**
- * Enum generated from <tt>msg/LabelerPacket.msg:21</tt> by nedtool.
+ * Enum generated from <tt>LabelerPacket.msg:21</tt> by nedtool.
  * <pre>
  * enum LabelerPacketType
  * {
@@ -47,7 +47,7 @@ enum LabelerPacketType {
 };
 
 /**
- * Enum generated from <tt>msg/LabelerPacket.msg:26</tt> by nedtool.
+ * Enum generated from <tt>LabelerPacket.msg:26</tt> by nedtool.
  * <pre>
  * enum NodeStatus
  * {
@@ -64,7 +64,7 @@ enum NodeStatus {
 };
 
 /**
- * Class generated from <tt>msg/LabelerPacket.msg:34</tt> by nedtool.
+ * Class generated from <tt>LabelerPacket.msg:34</tt> by nedtool.
  * <pre>
  * //
  * // TODO generated message class
@@ -77,7 +77,9 @@ enum NodeStatus {
  *     NodeStatus status;
  *     long seqNumber;
  *     long ttl;
- *     chunkLength = B(56); //Longitud en bytes del mensaje.
+ *     double x;
+ *     double y;
+ *     chunkLength = B(72); //Longitud en bytes del mensaje.
  * }
  * </pre>
  */
@@ -90,6 +92,8 @@ class LabelerPacket : public ::inet::FieldsChunk
     inet::NodeStatus status = static_cast<inet::NodeStatus>(-1);
     long seqNumber = 0;
     long ttl = 0;
+    double x = 0;
+    double y = 0;
 
   private:
     void copy(const LabelerPacket& other);
@@ -122,6 +126,10 @@ class LabelerPacket : public ::inet::FieldsChunk
     virtual void setSeqNumber(long seqNumber);
     virtual long getTtl() const;
     virtual void setTtl(long ttl);
+    virtual double getX() const;
+    virtual void setX(double x);
+    virtual double getY() const;
+    virtual void setY(double y);
 };
 
 inline void doParsimPacking(omnetpp::cCommBuffer *b, const LabelerPacket& obj) {obj.parsimPack(b);}

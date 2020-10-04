@@ -38,5 +38,7 @@ class LabelerPacket extends FieldsChunk {
     NodeStatus status;
     long seqNumber;
     long ttl;
-    chunkLength = B(56); //Longitud en bytes del mensaje.
+    double x;
+    double y;
+    chunkLength = B(72); //Longitud en bytes del mensaje.
 }

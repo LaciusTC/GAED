@@ -24,12 +24,12 @@ import inet.physicallayer.ieee80211.packetlevel.Ieee80211ScalarRadioMedium;
 network HelloTest
 {
     parameters:
-        @display("bgb=400,400;bgg=,,grey10");
+        @display("bgb=160,150;bgg=,,grey10");
         int moteNumber = default(2);
     submodules:
         radioMedium: Ieee80211ScalarRadioMedium {
             parameters:
-                @display("p=53,24;is=s");
+                @display("p=150,20;is=s");
         }
         mote[moteNumber]: TreeMote {
             @display("p=100,100");

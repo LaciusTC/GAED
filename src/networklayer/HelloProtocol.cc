@@ -113,8 +113,8 @@ void HelloProtocol::recvPacket(inet::Packet* pkt){
     // TODO obtener la etiqueta por apuntador hacia el etiquetador
     cache->insert(NeighborCache::entry("null",helloInfo->getSrcMacAddress(),helloInfo->getX(),helloInfo->getY()));
     
-    std::cout << "Vecindario del nodo " << mac << "\n";
-    cache->showNeighbor();
+    //std::cout << "Vecindario del nodo " << mac << "\n";
+    //cache->showNeighbor();
     
     // Eliminar referencia al paquete.
     delete pkt;

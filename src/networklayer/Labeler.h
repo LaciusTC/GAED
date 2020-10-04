@@ -57,6 +57,7 @@ class Labeler : public omnetpp::cSimpleModule
     virtual void handleMessage(omnetpp::cMessage *msg) override;
     virtual Status strToStatus(const char*);
     virtual inet::Packet* encapsulate(inet::LabelerPacketType type = inet::LabelerPacketType::OTHER);
+    virtual void drawTree(double,double);
 
   public:
     Labeler()

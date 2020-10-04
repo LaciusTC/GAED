@@ -44,6 +44,7 @@ public:
     virtual void insert(const entry&);
     virtual void showNeighbor();
     virtual void setPosition(double x,double y) {this->x=x; this->y=y;}
+    virtual std::pair<double,double> getNeighborPosition(const std::string&);
     NeighborCache(std::list<entry>&);
     NeighborCache();
     ~NeighborCache();

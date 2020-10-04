@@ -93,3 +93,21 @@ void NeighborCache::showNeighbor(){
         std::cout << "\tLabel: " << std::get<0>(i) << " / MAC: " << std::get<1>(i) << "\n";
     }
 }
+
+std::pair<double,double> NeighborCache::getNeighborPosition(const std::string& label) {
+    entry np(label,inet::MacAddress(),0.0,0.0);
+    std::pair<double,double> pos(0.0,0.0);
+    auto it = std::find_if(
+        neighborcache.begin(), 
+        neighborcache.end(), 
+        [label](const entry& e)->bool{
+            return label == std::get<0>(e);
+        }
+    );
+    if (it != neighborcache.end()) {
+        pos.first = std::get<2>(*it);
+        pos.second = std::get<3>(*it);
+    }
+    EV_INFO << label << "\n\n\n\n";
+    return pos;
+}
